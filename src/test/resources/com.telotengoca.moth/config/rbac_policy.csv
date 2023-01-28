@@ -1,0 +1,19 @@
+p, admin, vendor, read
+p, admin, vendor, write
+p, admin, vendor, update
+p, admin, vendor, delete
+p, admin, agent, read
+p, admin, agent, write
+p, admin, agent, update
+p, admin, agent, delete
+p, admin, invoice, read
+p, admin, invoice, write
+p, admin, invoice, update
+p, admin, invoice, delete
+p, admin, retention, read
+p, admin, retention, write
+p, admin, retention, update
+p, admin, retention, delete
+p, user, vendor, read
+g, user1, admin
+g, user2, user
