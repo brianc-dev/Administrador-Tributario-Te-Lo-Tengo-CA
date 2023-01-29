@@ -4,26 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="897b57ad-50b4-4948-a99c-5a46e37fec83" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/ProfileManager.kt" afterDir="false" />
+    <list default="true" id="897b57ad-50b4-4948-a99c-5a46e37fec83" name="Changes" comment="added ProfileManager">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/MothDatabase.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/MothDatabase.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/MothLogger.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/MothLogger.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/UserManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/UserManager.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/UserModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/UserModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/printer/PDFPrinter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/printer/PDFPrinter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/printer/Printer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/printer/Printer.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/utils/os.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/utils/os.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/utils/utils.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/utils/utils.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/telotengoca/moth/config/rbac_model.conf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/telotengoca/moth/config/rbac_model.conf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/telotengoca/moth/config/rbac_policy.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/telotengoca/moth/config/rbac_policy.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/com/telotengoca/moth/model/EnforcerTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/com/telotengoca/moth/model/EnforcerTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/com/telotengoca/moth/model/MothDatabaseImplTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/com/telotengoca/moth/model/MothDatabaseImplTest.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/kotlin/com/telotengoca/moth/model/MothUserManagerImplTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/com/telotengoca/moth/model/MothUserManagerImplTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/com/telotengoca/moth/printer/PDFPrinterTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/com/telotengoca/moth/printer/PDFPrinterTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/com.telotengoca.moth/config/rbac_policy.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/com.telotengoca.moth/config/rbac_policy.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,7 +83,7 @@
       <recent name="com.telotengoca.moth.printer" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.EnforcerTest (1)">
+  <component name="RunManager" selected="JUnit.MothUserManagerImplTest">
     <configuration name="EnforcerTest (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Moth" />
       <extension name="coverage">
@@ -145,23 +131,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="EnforcerTest.testThatUserCannotWriteToVendor" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Moth" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.telotengoca.moth.model.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.telotengoca.moth.model" />
-      <option name="MAIN_CLASS_NAME" value="com.telotengoca.moth.model.EnforcerTest" />
-      <option name="METHOD_NAME" value="testThatUserCannotWriteToVendor" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="MothUserManagerImplTest.test that jcasbin adapter connects" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="MothUserManagerImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Moth" />
       <extension name="coverage">
         <pattern>
@@ -171,7 +141,22 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.telotengoca.moth.model" />
       <option name="MAIN_CLASS_NAME" value="com.telotengoca.moth.model.MothUserManagerImplTest" />
-      <option name="METHOD_NAME" value="test that jcasbin adapter connects" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MothUserManagerImplTest.test that password hasher works" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Moth" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.telotengoca.moth.model.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.telotengoca.moth.model" />
+      <option name="MAIN_CLASS_NAME" value="com.telotengoca.moth.model.MothUserManagerImplTest" />
+      <option name="METHOD_NAME" value="test that password hasher works" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -192,11 +177,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.MothUserManagerImplTest" />
+        <item itemvalue="JUnit.MothUserManagerImplTest.test that password hasher works" />
         <item itemvalue="JUnit.EnforcerTest (1)" />
         <item itemvalue="JUnit.EnforcerTest.testThatAdminCanWriteToVendor" />
         <item itemvalue="JUnit.EnforcerTest.test that can add new policy" />
-        <item itemvalue="JUnit.EnforcerTest.testThatUserCannotWriteToVendor" />
-        <item itemvalue="JUnit.MothUserManagerImplTest.test that jcasbin adapter connects" />
       </list>
     </recent_temporary>
   </component>
@@ -209,6 +194,14 @@
       <option name="presentableId" value="Default" />
       <updated>1674088970155</updated>
     </task>
+    <task id="LOCAL-00001" summary="added ProfileManager">
+      <created>1674938590390</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1674938590390</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -226,6 +219,8 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="added ProfileManager" />
+    <option name="LAST_COMMIT_MESSAGE" value="added ProfileManager" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
 </project>
