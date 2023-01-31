@@ -9,7 +9,6 @@
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/MothDatabase.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/MothDatabase.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/ProfileManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/ProfileManager.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/UserManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/UserManager.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/UserModel.kt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/kotlin/com/telotengoca/moth/model/MothUserManagerImplTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/com/telotengoca/moth/model/MothUserManagerImplTest.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -237,12 +236,12 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/UserManager.kt</url>
-          <line>71</line>
+          <line>74</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/UserManager.kt</url>
-          <line>74</line>
+          <line>77</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>

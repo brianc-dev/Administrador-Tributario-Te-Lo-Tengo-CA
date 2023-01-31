@@ -53,7 +53,7 @@ class MothProfileManagerImpl(private val database: MothDatabase) : MothProfileMa
             it.prepareStatement("SELECT COUNT(*) FROM `profile` WHERE `user_id` = ?").use {
                 it.setString(1, userId)
                 it.executeQuery().use {
-                    it.last()
+                    it.next()
                     val count = it.getInt(1)
                     if (count == 0) return null
                     check(count < 2)
@@ -64,7 +64,7 @@ class MothProfileManagerImpl(private val database: MothDatabase) : MothProfileMa
             it.prepareStatement("SELECT * FROM `profile` WHERE `user_id` = ?").use {
                 it.setString(1, userId)
                 it.executeQuery().use {
-                    it.last()
+                    it.next()
                     return it.run {
                         Profile(
                             getString(1),

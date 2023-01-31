@@ -1,6 +1,7 @@
 package com.telotengoca.moth.model
 
 import org.casbin.jcasbin.main.Enforcer
+import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Timeout
@@ -28,9 +29,15 @@ class MothUserManagerImplTest {
         @JvmStatic
         fun setupTestDatabase() {
             testDatabase = object : MothDatabase {
+
+                init {
+                    createDatabase()
+                }
+
                 override fun createDatabase() {
                     val testDirName = DATABASE_TEST_DIR
                     val testRootDir = File(testDirName)
+                    if (!testRootDir.exists()) check(testRootDir.mkdir())
 
                     val databaseFile = File(testRootDir, TEST_DATABASE_FILE)
                     if (!databaseFile.exists()) databaseFile.createNewFile()
@@ -44,23 +51,44 @@ class MothUserManagerImplTest {
             val model: String
             val policy: String
             kotlin.run {
-                model = this::class.java.getResource("/com/telotengoca/moth/config/rbac_model.conf")?.path.toString()
-
-                policy = this::class.java.getResource("/com/telotengoca/moth/config/rbac_policy.csv")?.path.toString()
+                model = this::class.java.getResource("/com/telotengoca/moth/config/rbac_model.conf")?.toURI()!!.path
+                println(model)
+                policy = this::class.java.getResource("/com/telotengoca/moth/config/rbac_policy.csv")?.toURI()!!.path
+                println(policy)
 
             }
 
             val profileManager = MothProfileManagerImpl(testDatabase)
             testUserManager = MothUserManagerImpl(testDatabase, Enforcer(model, policy), profileManager)
         }
+
+        @AfterAll
+        @JvmStatic
+        fun cleanTestDatabase() {
+            testDatabase.connectDatabase().use {
+                it.createStatement().use {
+                    it.execute("DROP TABLE `user`")
+                    it.execute("DROP TABLE `profile`")
+                    it.execute("DROP TABLE `role`")
+                }
+            }
+        }
     }
 
     @Test
     fun `test that we can create users`() {
-        testUserManager.createUser("username1", "Username1=")
+        val username = "username1"
+        val password = "Username1="
+        testUserManager.createUser(username, password)
         testDatabase.connectDatabase().use {
             it.createStatement().use {
-                it.executeQuery("SELECT ")
+                it.executeQuery("SELECT * FROM `user` WHERE `username` = '$username'").use {
+                    val result = it.next()
+                    assert(result)
+                    assert(it.getRow() == 1)
+                    val savedUsername = it.getString("username")
+                    assert(savedUsername.equals(username))
+                }
             }
         }
     }

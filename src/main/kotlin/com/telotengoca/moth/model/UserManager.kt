@@ -4,7 +4,6 @@ import com.telotengoca.moth.utils.HexUtils
 import com.telotengoca.moth.utils.IDUtils
 import org.casbin.jcasbin.main.Enforcer
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder
-import java.lang.IllegalStateException
 import java.security.SecureRandom
 import java.security.spec.KeySpec
 import java.sql.Connection
@@ -40,6 +39,7 @@ class MothUserManagerImpl(
     init {
         // create tables if they don't exist
         createUserTable(database.connectDatabase())
+        createRoleTable(database.connectDatabase())
     }
 
     var currentUser: User? = null
@@ -50,8 +50,11 @@ class MothUserManagerImpl(
         private const val DEFAULT_ROLE = "user"
     }
 
-    class UsernameExistsException(username: String): Exception("$username already exists")
-
+    /**
+     * Exception used to indicate that a given username already exists
+     * @param [username] the username already existing
+     */
+    class UsernameExistsException(username: String) : Exception("$username already exists")
 
     override fun createUser(username: String, password: String) {
 
@@ -60,7 +63,7 @@ class MothUserManagerImpl(
             it.prepareStatement("SELECT COUNT(*) FROM `user` WHERE `username` = ?").use {
                 it.setString(1, username)
                 it.executeQuery().use {
-                    it.last()
+                    it.next()
                     val count = it.getInt(1)
                     if (count > 0) throw UsernameExistsException(username)
                 }
@@ -76,7 +79,7 @@ class MothUserManagerImpl(
                 it.setString(1, id)
                 val result: Int
                 it.executeQuery().use {
-                    it.last()
+                    it.next()
                     result = it.getInt(1)
                 }
                 if (result == 0) break
@@ -84,7 +87,7 @@ class MothUserManagerImpl(
         }
 
         database.connectDatabase().use {
-            it.prepareStatement("INSERT INTO `user` VALUES(?, ?, ?, ?)").use {
+            it.prepareStatement("INSERT INTO `user`(id, username, password, role) VALUES(?, ?, ?, ?)").use {
                 it.setString(1, id)
                 it.setString(2, username)
                 it.setString(3, password)
@@ -93,8 +96,6 @@ class MothUserManagerImpl(
                 it.executeUpdate().also {
                     check(it == 1)
                 }
-
-
             }
         }
 
@@ -111,24 +112,34 @@ class MothUserManagerImpl(
         val user: User
         val hashedPassword: String
         database.connectDatabase().use {
-            val preparedStatement = it.prepareStatement("SELECT * FROM `user` WHERE `user`.`username` = ?")
-            preparedStatement.setString(1, username)
-            val resultSet = preparedStatement.executeQuery()!!
 
-            if (resultSet.fetchSize == 0) return false
+            it.prepareStatement("SELECT COUNT(*) FROM `user` WHERE `user`.`username` = ?").use {
+                it.setString(1, username)
+                it.executeQuery().use {
+                    it.next()
+                    val count = it.getInt(1)
 
-            // hope we never use this line, just for defensive purpose
-            if (resultSet.fetchSize > 1) throw SecurityException("There are more than one user with same username")
+                    if (count == 0) return false
 
-            resultSet.last()
-            val userId = resultSet.getString(1)
-            val userUsername = resultSet.getString(2)
-            val userPassword = resultSet.getString(3)
-            val userRole = resultSet.getString(4)
-            val createdAt = resultSet.getString(5)
+                    // hope we never use this line, just for defensive purpose
+                    if (count > 1) throw IllegalStateException("There are more than one user with same username")
+                }
+            }
 
-            hashedPassword = userPassword
-            user = User(userId, userUsername, userPassword, userRole, createdAt)
+            it.prepareStatement("SELECT * FROM `user` WHERE `user`.`username` = ?").use {
+
+                it.setString(1, username)
+                it.executeQuery().use {
+                    it.next()
+                    val userId = it.getString(1)
+                    val userUsername = it.getString(2)
+                    val userPassword = it.getString(3)
+                    val userRole = it.getString(4)
+                    val createdAt = it.getString(5)
+                    hashedPassword = userPassword
+                    user = User(userId, userUsername, userPassword, userRole, createdAt)
+                }
+            }
         }
         val hasher = Argon2PasswordEncoder(32, 128, 1, 15 * 1024, 2)
 
@@ -151,10 +162,16 @@ class MothUserManagerImpl(
     }
 
     private fun createRoleTable(connection: Connection) {
+        if (MothDatabaseImpl.tableExists("role", connection)) {
+            connection.close()
+            return
+        }
+
         connection.use {
             it.createStatement().use {
-                val result = it.execute("CREATE TABLE IF NOT EXISTS `role`(role VARCHAR(20) PRIMARY KEY NOT NULL)")
-//                it.execute("INSERT INTO `role` VALUES(")")
+                it.execute("CREATE TABLE IF NOT EXISTS `role`(role VARCHAR(20) PRIMARY KEY NOT NULL)")
+                it.execute("INSERT INTO `role` VALUES('user')")
+                it.execute("INSERT INTO `role` VALUES('admin')")
             }
         }
     }
@@ -163,6 +180,11 @@ class MothUserManagerImpl(
      * Creates user table if not created.
      */
     private fun createUserTable(connection: Connection) {
+        if (MothDatabaseImpl.tableExists("user", connection)) {
+            connection.close()
+            return
+        }
+
         connection.use {
             it.createStatement().use {
                 it.execute("CREATE TABLE IF NOT EXISTS `user`(id VARCHAR(7) PRIMARY KEY NOT NULL, username VARCHAR(10) UNIQUE NOT NULL, password VARCHAR(128) NOT NULL, role VARCHAR(32) NOT NULL, created_at TEXT NOT NULL DEFAULT (datetime('now', 'localtime')), FOREIGN KEY (role) REFERENCES role(role))")

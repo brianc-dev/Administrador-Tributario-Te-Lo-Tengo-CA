@@ -4,6 +4,7 @@ import java.io.File
 import java.io.IOException
 import java.sql.Connection
 import java.sql.DriverManager
+import java.sql.ResultSet
 import kotlin.system.exitProcess
 
 interface MothDatabase {
@@ -24,6 +25,21 @@ class MothDatabaseImpl: MothDatabase {
          * Connection string for sqlite database with JDBC
          */
         const val CONNECTION_STRING = "jdbc:sqlite:database/moth.sqlite"
+
+        fun tableExists(table: String, connection: Connection): Boolean {
+            connection.prepareStatement("SELECT name FROM sqlite_master WHERE type='table' AND name = ?").use {
+                it.setString(1, table)
+                it.executeQuery().use {
+                    it.next()
+                    val result = it.getInt(1)
+                    return result != 0
+                }
+            }
+        }
+    }
+
+    init {
+        createDatabase()
     }
 
     /**
