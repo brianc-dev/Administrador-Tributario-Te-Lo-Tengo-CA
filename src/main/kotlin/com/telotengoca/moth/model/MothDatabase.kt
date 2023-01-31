@@ -6,6 +6,18 @@ import java.sql.Connection
 import java.sql.DriverManager
 import kotlin.system.exitProcess
 
+interface MothDatabase {
+    /**
+     * This functions creates the database
+     */
+    fun createDatabase(): Unit
+
+    /**
+     * Connects with database
+     */
+    fun connectDatabase(): Connection
+}
+
 class MothDatabaseImpl: MothDatabase {
     companion object {
         /**
@@ -30,20 +42,13 @@ class MothDatabaseImpl: MothDatabase {
             // TODO: add log
             print("a security exception occurred")
             print(e.localizedMessage)
-            exitProcess(1)
+            exitProcess(255)
         } catch (e: IOException) {
             // TODO: add log
             print("an IO error occurred")
             print(e.localizedMessage)
-            exitProcess(1)
+            exitProcess(255)
         }
-
-        // Setup database structure
-//        val connection = connectDatabase()
-//        connection.use {
-//            val statement = it.createStatement()
-//        }
-
     }
 
     /**
@@ -55,16 +60,4 @@ class MothDatabaseImpl: MothDatabase {
      override fun connectDatabase(): Connection {
         return DriverManager.getConnection(CONNECTION_STRING)
     }
-}
-
-interface MothDatabase {
-    /**
-     * This functions creates the database
-     */
-    fun createDatabase(): Unit
-
-    /**
-     * Connects with database
-     */
-    fun connectDatabase(): Connection
 }

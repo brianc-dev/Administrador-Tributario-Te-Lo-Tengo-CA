@@ -4,6 +4,7 @@ import com.telotengoca.moth.utils.HexUtils
 import com.telotengoca.moth.utils.IDUtils
 import org.casbin.jcasbin.main.Enforcer
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder
+import java.lang.IllegalStateException
 import java.security.SecureRandom
 import java.security.spec.KeySpec
 import java.sql.Connection
@@ -30,7 +31,11 @@ interface MothUserManager {
 /**
  * This user manager uses a sqlite database to save users and role.
  */
-class MothUserManagerImpl (private val database: MothDatabase, private val policyEnforcer: Enforcer, private val profileManager: MothProfileManager): MothUserManager {
+class MothUserManagerImpl(
+    private val database: MothDatabase,
+    private val policyEnforcer: Enforcer,
+    private val profileManager: MothProfileManager
+) : MothUserManager {
 
     init {
         // create tables if they don't exist
@@ -44,9 +49,55 @@ class MothUserManagerImpl (private val database: MothDatabase, private val polic
         private const val ID_LENGTH = 7
         private const val DEFAULT_ROLE = "user"
     }
+
+    class UsernameExistsException(username: String): Exception("$username already exists")
+
+
     override fun createUser(username: String, password: String) {
-        val id = IDUtils.generateRandomId(ID_LENGTH)
-//        val user = User(id, username, password, DEFAULT_ROLE)
+
+        // check that username doesn't exist
+        database.connectDatabase().use {
+            it.prepareStatement("SELECT COUNT(*) FROM `user` WHERE `username` = ?").use {
+                it.setString(1, username)
+                it.executeQuery().use {
+                    it.last()
+                    val count = it.getInt(1)
+                    if (count > 0) throw UsernameExistsException(username)
+                }
+            }
+        }
+
+        // make sure id generated is truly unique
+        var id: String
+        val connection = database.connectDatabase()
+        connection.prepareStatement("SELECT COUNT(*) FROM `user` WHERE `id` = ?").use {
+            while (true) {
+                id = IDUtils.generateRandomId(ID_LENGTH)
+                it.setString(1, id)
+                val result: Int
+                it.executeQuery().use {
+                    it.last()
+                    result = it.getInt(1)
+                }
+                if (result == 0) break
+            }
+        }
+
+        database.connectDatabase().use {
+            it.prepareStatement("INSERT INTO `user` VALUES(?, ?, ?, ?)").use {
+                it.setString(1, id)
+                it.setString(2, username)
+                it.setString(3, password)
+                it.setString(4, DEFAULT_ROLE)
+
+                it.executeUpdate().also {
+                    check(it == 1)
+                }
+
+
+            }
+        }
+
     }
 
     /**
@@ -90,7 +141,22 @@ class MothUserManagerImpl (private val database: MothDatabase, private val polic
     }
 
     override fun logout() {
-        TODO("Not yet implemented")
+        currentUser = null
+    }
+
+    fun createProfile(firstName: String, lastName: String, email: String?, telephone: String?, address: String?) {
+        if (currentUser == null) throw IllegalStateException("User must be logged in to create profile")
+        val profile = Profile(currentUser!!.id, firstName, lastName, email, address, telephone)
+        profileManager.createProfile(profile)
+    }
+
+    private fun createRoleTable(connection: Connection) {
+        connection.use {
+            it.createStatement().use {
+                val result = it.execute("CREATE TABLE IF NOT EXISTS `role`(role VARCHAR(20) PRIMARY KEY NOT NULL)")
+//                it.execute("INSERT INTO `role` VALUES(")")
+            }
+        }
     }
 
     /**
@@ -98,8 +164,9 @@ class MothUserManagerImpl (private val database: MothDatabase, private val polic
      */
     private fun createUserTable(connection: Connection) {
         connection.use {
-            val stm = it.createStatement()
-            stm.execute("CREATE TABLE `user`(id VARCHAR(7) PRIMARY KEY NOT NULL, username VARCHAR(10) UNIQUE NOT NULL, password VARCHAR(128) NOT NULL, role VARCHAR(32) NOT NULL, created_at TEXT DEFAULT (datetime('now', 'localtime')), FOREIGN KEY (role) REFERENCES role(role))")
+            it.createStatement().use {
+                it.execute("CREATE TABLE IF NOT EXISTS `user`(id VARCHAR(7) PRIMARY KEY NOT NULL, username VARCHAR(10) UNIQUE NOT NULL, password VARCHAR(128) NOT NULL, role VARCHAR(32) NOT NULL, created_at TEXT NOT NULL DEFAULT (datetime('now', 'localtime')), FOREIGN KEY (role) REFERENCES role(role))")
+            }
         }
     }
 
