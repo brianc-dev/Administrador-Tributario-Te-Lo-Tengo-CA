@@ -1,6 +1,5 @@
 package com.telotengoca.moth.model
 
-import java.sql.Connection
 import java.sql.SQLIntegrityConstraintViolationException
 
 /**
@@ -26,7 +25,7 @@ interface MothProfileManager {
 class MothProfileManagerImpl(private val database: MothDatabase) : MothProfileManager {
 
     init {
-        createProfileTable(database.connectDatabase())
+        createProfileTable()
     }
 
     override fun createProfile(profile: Profile) {
@@ -85,10 +84,10 @@ class MothProfileManagerImpl(private val database: MothDatabase) : MothProfileMa
      * user_id, first_name, last_name, email, address, telephone
      * user_id references `id` column in `user` table
      */
-    private fun createProfileTable(connection: Connection) {
-        connection.use {
+    private fun createProfileTable() {
+        database.connectDatabase().use {
             it.createStatement().use { stm ->
-                stm.execute("CREATE TABLE IF NOT EXISTS profile(user_id VARCHAR(7) PRIMARY KEY NOT NULL, firstName VARCHAR(30), lastName VARCHAR(30) NOT NULL, email TEXT, address VARCHAR(150), telephone VARCHAR(15), FOREIGN KEY (user_id) REFERENCES user(id))")
+                stm.execute("CREATE TABLE IF NOT EXISTS `profile`(`user_id` VARCHAR(7) PRIMARY KEY NOT NULL, `firstName` VARCHAR(30), `lastName` VARCHAR(30) NOT NULL, `email` TEXT, `address` VARCHAR(150), `telephone` VARCHAR(15), FOREIGN KEY (user_id) REFERENCES user(id))")
             }
         }
     }

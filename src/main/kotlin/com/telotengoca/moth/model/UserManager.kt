@@ -25,6 +25,7 @@ interface MothUserManager {
     fun createUser(username: String, password: String)
     fun login(username: String, password: String): Boolean
     fun logout()
+    fun checkPermission(user: String, resource: String, permission: String): Boolean
 }
 
 /**
@@ -48,6 +49,21 @@ class MothUserManagerImpl(
     companion object {
         private const val ID_LENGTH = 7
         private const val DEFAULT_ROLE = "user"
+        /**
+         * Defines the name of the object/resource to check against the permission enforcer
+         */
+        const val RESOURCE: String = "user"
+
+    }
+
+    enum class Permissions {
+        CREATE,
+        READ,
+        UPDATE,
+        DELETE;
+
+        val value: String
+            get() = name.lowercase()
     }
 
     /**
@@ -57,6 +73,16 @@ class MothUserManagerImpl(
     class UsernameExistsException(username: String) : Exception("$username already exists")
 
     override fun createUser(username: String, password: String) {
+
+        // check user is logged in
+        if (currentUser == null) {
+            throw NoUserLoggedInException("No user is logged in")
+        }
+
+        // check user permission
+        if (!checkPermission(currentUser!!.username, RESOURCE, Permissions.CREATE.value)) {
+            throw SecurityException("User has no permission to create new user")
+        }
 
         // check that username doesn't exist
         database.connectDatabase().use {
@@ -100,6 +126,8 @@ class MothUserManagerImpl(
         }
 
     }
+
+    class NoUserLoggedInException(message: String) : RuntimeException(message)
 
     /**
      * Logs in a new user.
@@ -153,6 +181,10 @@ class MothUserManagerImpl(
 
     override fun logout() {
         currentUser = null
+    }
+
+    override fun checkPermission(user: String, resource: String, permission: String): Boolean {
+        return policyEnforcer.enforce(user, resource, permission)
     }
 
     fun createProfile(firstName: String, lastName: String, email: String?, telephone: String?, address: String?) {
