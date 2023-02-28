@@ -36,3 +36,10 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+config.properties
+*.properties
+testLogs/
+testDatabase/
+logs/
+database/

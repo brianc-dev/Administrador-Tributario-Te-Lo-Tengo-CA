@@ -1,0 +1,33 @@
+<configuration debug="true">
+    <variable file="src/test/resources/config.properties"/>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>${LOG_DIR}/${LOG_FILE}</file>
+        <append>true</append>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} %-5level %logger - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="DB" class="ch.qos.logback.classic.db.DBAppender">
+        <connectionSource class="ch.qos.logback.core.db.DriverManagerConnectionSource">
+            <driverClass>org.sqlite.JDBC</driverClass>
+            <url>jdbc:sqlite:${DATABASE_DIR}/${LOG_DATABASE_FILE}</url>
+        </connectionSource>
+    </appender>
+
+    <logger name="com.telotengoca.moth" level="INFO">
+        <appender-ref ref="FILE" />
+        <appender-ref ref="DB" />
+    </logger>
+
+    <root level="debug">
+        <appender-ref ref="STDOUT" />
+    </root>
+</configuration>

@@ -34,7 +34,7 @@ class MothUserManagerImplTest {
                     createDatabase()
                 }
 
-                override fun createDatabase() {
+                private fun createDatabase() {
                     val testDirName = DATABASE_TEST_DIR
                     val testRootDir = File(testDirName)
                     if (!testRootDir.exists()) check(testRootDir.mkdir())

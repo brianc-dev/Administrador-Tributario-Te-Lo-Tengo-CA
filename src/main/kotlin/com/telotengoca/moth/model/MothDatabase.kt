@@ -4,15 +4,10 @@ import java.io.File
 import java.io.IOException
 import java.sql.Connection
 import java.sql.DriverManager
-import java.sql.ResultSet
+import java.util.*
 import kotlin.system.exitProcess
 
 interface MothDatabase {
-    /**
-     * This functions creates the database
-     */
-    fun createDatabase(): Unit
-
     /**
      * Connects with database
      */
@@ -20,11 +15,11 @@ interface MothDatabase {
 }
 
 class MothDatabaseImpl: MothDatabase {
+
+    private val connectionString: String
     companion object {
-        /**
-         * Connection string for sqlite database with JDBC
-         */
-        const val CONNECTION_STRING = "jdbc:sqlite:database/moth.sqlite"
+
+        private val properties: Properties = Properties()
 
         fun tableExists(table: String, connection: Connection): Boolean {
             connection.prepareStatement("SELECT name FROM sqlite_master WHERE type='table' AND name = ?").use {
@@ -39,20 +34,27 @@ class MothDatabaseImpl: MothDatabase {
     }
 
     init {
+        properties.load(this::class.java.getResourceAsStream("/config.properties"))
+
+        val dbDir = properties.getProperty("DATABASE_DIR")
+        val dbFile = properties.getProperty("DATABASE_FILE")
+        connectionString = "jdbc:sqlite:$dbDir/$dbFile"
+        
         createDatabase()
     }
 
     /**
      * This method creates a sqlite database in a file in root dir.
      */
-    override fun createDatabase() {
+    private fun createDatabase() {
         // create "database" dir
-        val dirName = "database"
+        val dirName = checkNotNull(properties.getProperty("DATABASE_DIR"))
         val rootDir = File(dirName)
         try {
             if (!rootDir.exists()) rootDir.mkdir()
             // create database file for sqlite
-            val databaseFile = File(rootDir, "moth.sqlite")
+            val dbFileName = checkNotNull(properties.getProperty("DATABASE_FILE"))
+            val databaseFile = File(rootDir, dbFileName)
             if (!databaseFile.exists()) databaseFile.createNewFile()
         } catch (e: SecurityException) {
             // TODO: add log
@@ -74,6 +76,6 @@ class MothDatabaseImpl: MothDatabase {
      * @exception java.sql.SQLTimeoutException
      */
      override fun connectDatabase(): Connection {
-        return DriverManager.getConnection(CONNECTION_STRING)
+        return DriverManager.getConnection(connectionString)
     }
 }

@@ -4,12 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="897b57ad-50b4-4948-a99c-5a46e37fec83" name="Changes" comment="added login">
+    <list default="true" id="897b57ad-50b4-4948-a99c-5a46e37fec83" name="Changes" comment="added log file and log database. Also added implementation for logger">
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/logger/MothLogger.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/logback.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/kotlin/com/telotengoca/moth/logger/LoggerTest.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/kotlin/com/telotengoca/moth/logger/MothLoggerImplTest.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/logback-test.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/moth.sqlite" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/MothDatabase.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/MothDatabase.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/ProfileManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/ProfileManager.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/UserManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/UserManager.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/MothLogger.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/com/telotengoca/moth/model/MothDatabaseImplTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/com/telotengoca/moth/model/MothDatabaseImplTest.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/kotlin/com/telotengoca/moth/model/MothUserManagerImplTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/com/telotengoca/moth/model/MothUserManagerImplTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testDatabase/moth.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/testDatabase/moth.sqlite" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,12 +32,17 @@
         <option value="Kotlin Data Class" />
         <option value="Kotlin Interface" />
         <option value="Kotlin File" />
-        <option value="JUnit5 Test Class" />
         <option value="Kotlin Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -56,10 +71,10 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
     &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/kitsuwolf/Development/IdeaProjects/Administrador tributario Te Lo Tengo CA/src/test/resources/com.telotengoca.moth&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/kitsuwolf/Development/IdeaProjects/Administrador tributario Te Lo Tengo CA/src/test/resources/com.telotengoca.moth/config&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.26436782&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   },
   &quot;keyToStringList&quot;: {
@@ -70,52 +85,61 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/test/resources/com.telotengoca.moth/config" />
       <recent name="$PROJECT_DIR$/src/test/resources/com.telotengoca.moth" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources" />
+      <recent name="$PROJECT_DIR$/src/test/resources" />
+      <recent name="$PROJECT_DIR$/src/test/resources/com.telotengoca.moth" />
+      <recent name="$PROJECT_DIR$/src/test/kotlin/com/telotengoca/moth" />
+    </key>
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="com.telotengoca.moth.logger" />
       <recent name="com.telotengoca.moth.model" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.telotengoca.moth.logger" />
       <recent name="com.telotengoca.moth.model" />
       <recent name="com.telotengoca.moth.printer" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.MothUserManagerImplTest">
-    <configuration name="EnforcerTest (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.MothLoggerImplTest">
+    <configuration name="LoggerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Moth" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.telotengoca.moth.model.*" />
+          <option name="PATTERN" value="com.telotengoca.moth.logger.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.telotengoca.moth.model" />
-      <option name="MAIN_CLASS_NAME" value="com.telotengoca.moth.model.EnforcerTest" />
+      <option name="PACKAGE_NAME" value="com.telotengoca.moth.logger" />
+      <option name="MAIN_CLASS_NAME" value="com.telotengoca.moth.logger.LoggerTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="EnforcerTest.test that can add new policy" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="LoggerTest.test that logger works" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Moth" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.telotengoca.moth.model.*" />
+          <option name="PATTERN" value="com.telotengoca.moth.logger.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.telotengoca.moth.model" />
-      <option name="MAIN_CLASS_NAME" value="com.telotengoca.moth.model.EnforcerTest" />
-      <option name="METHOD_NAME" value="test that can add new policy" />
+      <option name="PACKAGE_NAME" value="com.telotengoca.moth.logger" />
+      <option name="MAIN_CLASS_NAME" value="com.telotengoca.moth.logger.LoggerTest" />
+      <option name="METHOD_NAME" value="test that logger works" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="EnforcerTest.testThatAdminCanWriteToVendor" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="MothDatabaseImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Moth" />
       <extension name="coverage">
         <pattern>
@@ -124,9 +148,23 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.telotengoca.moth.model" />
-      <option name="MAIN_CLASS_NAME" value="com.telotengoca.moth.model.EnforcerTest" />
-      <option name="METHOD_NAME" value="testThatAdminCanWriteToVendor" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="MAIN_CLASS_NAME" value="com.telotengoca.moth.model.MothDatabaseImplTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MothLoggerImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Moth" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.telotengoca.moth.logger.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.telotengoca.moth.logger" />
+      <option name="MAIN_CLASS_NAME" value="com.telotengoca.moth.logger.MothLoggerImplTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -146,22 +184,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MothUserManagerImplTest.test that password hasher works" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Moth" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.telotengoca.moth.model.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.telotengoca.moth.model" />
-      <option name="MAIN_CLASS_NAME" value="com.telotengoca.moth.model.MothUserManagerImplTest" />
-      <option name="METHOD_NAME" value="test that password hasher works" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <module name="Administrador tributario Te Lo Tengo CA" />
       <method v="2">
@@ -177,11 +199,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.MothLoggerImplTest" />
+        <item itemvalue="JUnit.LoggerTest" />
+        <item itemvalue="JUnit.MothDatabaseImplTest" />
+        <item itemvalue="JUnit.LoggerTest.test that logger works" />
         <item itemvalue="JUnit.MothUserManagerImplTest" />
-        <item itemvalue="JUnit.MothUserManagerImplTest.test that password hasher works" />
-        <item itemvalue="JUnit.EnforcerTest (1)" />
-        <item itemvalue="JUnit.EnforcerTest.testThatAdminCanWriteToVendor" />
-        <item itemvalue="JUnit.EnforcerTest.test that can add new policy" />
       </list>
     </recent_temporary>
   </component>
@@ -228,7 +250,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="added ProfileManager" />
     <MESSAGE value="added login" />
-    <option name="LAST_COMMIT_MESSAGE" value="added login" />
+    <MESSAGE value="added log file and log database. Also added implementation for logger" />
+    <option name="LAST_COMMIT_MESSAGE" value="added log file and log database. Also added implementation for logger" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">

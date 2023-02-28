@@ -7,6 +7,9 @@ module com.telotengoca.moth {
     requires kotlin.stdlib.jdk7;
     requires jcasbin;
     requires spring.security.crypto;
+    requires org.slf4j;
+    requires ch.qos.logback.classic;
+    requires ch.qos.logback.core;
 
     opens com.telotengoca.moth to javafx.fxml;
     exports com.telotengoca.moth;
