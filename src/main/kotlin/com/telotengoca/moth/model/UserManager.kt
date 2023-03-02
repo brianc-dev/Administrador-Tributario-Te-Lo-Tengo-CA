@@ -25,6 +25,7 @@ data class User(
  * Describes a user manager object
  */
 interface UserManager {
+    val currentUser: User?
     fun createUser(username: String, password: String)
     fun updateRole(username: String, newRole: String)
     fun login(username: String, password: String): Boolean
@@ -47,7 +48,7 @@ class UserManagerImpl(
         createRoleTable(database.connectDatabase())
     }
 
-    var currentUser: User? = null
+    override var currentUser: User? = null
         private set
 
     companion object {
