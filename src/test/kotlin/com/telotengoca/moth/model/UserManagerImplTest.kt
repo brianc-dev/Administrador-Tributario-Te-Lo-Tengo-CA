@@ -16,14 +16,14 @@ private const val DATABASE_TEST_DIR = "testDatabase/"
 
 private const val TEST_DATABASE_FILE = "moth.sqlite"
 
-class MothUserManagerImplTest {
+class UserManagerImplTest {
 
     companion object {
 
         private const val CONNECTION_STRING = "jdbc:sqlite:$DATABASE_TEST_DIR$TEST_DATABASE_FILE"
 
         private lateinit var testDatabase: MothDatabase
-        private lateinit var testUserManager: MothUserManager
+        private lateinit var testUserManager: UserManager
 
         @BeforeAll
         @JvmStatic
@@ -59,7 +59,7 @@ class MothUserManagerImplTest {
             }
 
             val profileManager = MothProfileManagerImpl(testDatabase)
-            testUserManager = MothUserManagerImpl(testDatabase, Enforcer(model, policy), profileManager)
+            testUserManager = UserManagerImpl(testDatabase, Enforcer(model, policy), profileManager)
         }
 
         @AfterAll

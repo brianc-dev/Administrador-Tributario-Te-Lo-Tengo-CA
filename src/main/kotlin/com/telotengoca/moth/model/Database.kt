@@ -1,5 +1,8 @@
 package com.telotengoca.moth.model
 
+import com.telotengoca.moth.config.Config
+import com.telotengoca.moth.logger.MothLogger
+import com.telotengoca.moth.logger.MothLoggerFactory
 import java.io.File
 import java.io.IOException
 import java.sql.Connection
@@ -18,9 +21,15 @@ class MothDatabaseImpl: MothDatabase {
 
     private val connectionString: String
     companion object {
+        private val logger: MothLogger = MothLoggerFactory.getLogger(MothDatabase::class.java)
 
         private val properties: Properties = Properties()
 
+        /**
+         * Convenience function to check if a table exists. Only works for SQLite.
+         * @param table name of table to check
+         * @param connection connection to database where to check. Database must be a SQLite database
+         */
         fun tableExists(table: String, connection: Connection): Boolean {
             connection.prepareStatement("SELECT name FROM sqlite_master WHERE type='table' AND name = ?").use {
                 it.setString(1, table)
@@ -34,10 +43,10 @@ class MothDatabaseImpl: MothDatabase {
     }
 
     init {
-        properties.load(this::class.java.getResourceAsStream("/config.properties"))
+        properties.load(this::class.java.getResourceAsStream(Config.CONFIG_FILE_URL))
 
-        val dbDir = properties.getProperty("DATABASE_DIR")
-        val dbFile = properties.getProperty("DATABASE_FILE")
+        val dbDir = checkNotNull(properties.getProperty("DATABASE_DIR"))
+        val dbFile = checkNotNull(properties.getProperty("DATABASE_FILE"))
         connectionString = "jdbc:sqlite:$dbDir/$dbFile"
         
         createDatabase()
@@ -57,14 +66,10 @@ class MothDatabaseImpl: MothDatabase {
             val databaseFile = File(rootDir, dbFileName)
             if (!databaseFile.exists()) databaseFile.createNewFile()
         } catch (e: SecurityException) {
-            // TODO: add log
-            print("a security exception occurred")
-            print(e.localizedMessage)
+            logger.error("A security exception occurred. Database directory or file couldn't be created", e)
             exitProcess(255)
         } catch (e: IOException) {
-            // TODO: add log
-            print("an IO error occurred")
-            print(e.localizedMessage)
+            logger.error("An I/O error occurred", e)
             exitProcess(255)
         }
     }

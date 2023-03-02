@@ -69,7 +69,7 @@ class MothLoggerImplTest {
         try {
             throw SQLException("Database error")
         } catch (e: SQLException) {
-            logger.error("A database error has happened: ", e)
+            logger.error("A database error has happened", e)
         }
     }
 }

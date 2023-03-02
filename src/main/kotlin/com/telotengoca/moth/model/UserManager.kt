@@ -24,7 +24,7 @@ data class User(
 /**
  * Describes a user manager object
  */
-interface MothUserManager {
+interface UserManager {
     fun createUser(username: String, password: String)
     fun updateRole(username: String, newRole: String)
     fun login(username: String, password: String): Boolean
@@ -35,11 +35,11 @@ interface MothUserManager {
 /**
  * This user manager uses a sqlite database to save users and role.
  */
-class MothUserManagerImpl(
+class UserManagerImpl(
     private val database: MothDatabase,
     private val policyEnforcer: Enforcer,
     private val profileManager: MothProfileManager
-) : MothUserManager {
+) : UserManager {
 
     init {
         // create tables if they don't exist
@@ -51,7 +51,7 @@ class MothUserManagerImpl(
         private set
 
     companion object {
-        private val logger = MothLoggerFactory.getLogger(MothUserManager::class.java)
+        private val logger = MothLoggerFactory.getLogger(UserManager::class.java)
         private const val ID_LENGTH = 7
         private const val DEFAULT_ROLE = "user"
         /**
@@ -72,12 +72,6 @@ class MothUserManagerImpl(
             get() = name.lowercase()
     }
 
-    /**
-     * Exception used to indicate that a given username already exists
-     * @param [username] the username already existing
-     */
-    class UsernameExistsException(username: String) : Exception("$username already exists")
-
     override fun createUser(username: String, password: String) {
 
         try {
@@ -88,7 +82,7 @@ class MothUserManagerImpl(
 
             // check user permission
             if (!checkPermission(currentUser!!.username, RESOURCE, Permissions.CREATE.value)) {
-                throw SecurityException("User has no permission to create new user")
+                throw SecurityPolicyViolation("User has no permission to create new user")
             }
 
             // check that username doesn't exist
@@ -132,25 +126,40 @@ class MothUserManagerImpl(
                 }
             }
         } catch (e: SQLException) {
-            logger.error("SQL exception occurred. {}", )
+            logger.error("SQL exception occurred", e)
+            logger.info("Terminating program due to error...")
             exitProcess(255)
         }
 
     }
 
     override fun updateRole(username: String, newRole: String) {
-        try {
-
+        logger.info("User [{}] tries to update role of target user [{}] to role '{}'", currentUser!!.id, username, newRole)
         if (!checkPermission(currentUser!!.username, RESOURCE, Permissions.CHANGE_ROLE.value)) {
-            throw SecurityException("User has no permission to change roles")
+            throw SecurityPolicyViolation("User has no permission to change roles")
         }
-        } catch (e: SecurityException) {
-            // TODO: log
-            logger
-        }
+        TODO("update role for user")
+
+
     }
 
+    /**
+     * Exception used to indicate that a given username already exists
+     * @param username the username already existing
+     */
+    class UsernameExistsException(username: String) : Exception("$username already exists")
+
+    /**
+     * Exception used to indicate no user is logged in
+     * @param message message for exception
+     */
     class NoUserLoggedInException(message: String) : RuntimeException(message)
+
+    /**
+     * Exception used to indicate that a subject tried to access a resource, but the security policy rejected it.
+     * @param message message for exception
+     */
+    class SecurityPolicyViolation(message: String) : RuntimeException(message)
 
     /**
      * Logs in a new user.
@@ -160,49 +169,65 @@ class MothUserManagerImpl(
      * @throws SecurityException if more than one user exists with the same username
      */
     override fun login(username: String, password: String): Boolean {
-        val user: User
-        val hashedPassword: String
-        database.connectDatabase().use {
+        try {
+            val user: User
+            val hashedPassword: String
+            database.connectDatabase().use {
 
-            it.prepareStatement("SELECT COUNT(*) FROM `user` WHERE `user`.`username` = ?").use {
-                it.setString(1, username)
-                it.executeQuery().use {
-                    it.next()
-                    val count = it.getInt(1)
+                it.prepareStatement("SELECT COUNT(*) FROM `user` WHERE `user`.`username` = ?").use {
+                    it.setString(1, username)
+                    it.executeQuery().use {
+                        it.next()
+                        val count = it.getInt(1)
 
-                    if (count == 0) return false
+                        if (count == 0){
+                            logger.info("An attempt to login occurred but not user was found")
+                            return false
+                        }
 
-                    // hope we never use this line, just for defensive purpose
-                    if (count > 1) throw IllegalStateException("There are more than one user with same username")
+                        // hope we never use this line, just for defensive purpose
+                        if (count > 1) throw IllegalStateException("There are more than one user with same username")
+                    }
+                }
+
+                it.prepareStatement("SELECT * FROM `user` WHERE `user`.`username` = ?").use {
+
+                    it.setString(1, username)
+                    it.executeQuery().use {
+                        it.next()
+                        val userId = it.getString(1)
+                        val userUsername = it.getString(2)
+                        val userPassword = it.getString(3)
+                        val userRole = it.getString(4)
+                        val createdAt = it.getString(5)
+                        hashedPassword = userPassword
+                        user = User(userId, userUsername, userPassword, userRole, createdAt)
+                    }
                 }
             }
+            val hasher = Argon2PasswordEncoder(32, 128, 1, 15 * 1024, 2)
 
-            it.prepareStatement("SELECT * FROM `user` WHERE `user`.`username` = ?").use {
-
-                it.setString(1, username)
-                it.executeQuery().use {
-                    it.next()
-                    val userId = it.getString(1)
-                    val userUsername = it.getString(2)
-                    val userPassword = it.getString(3)
-                    val userRole = it.getString(4)
-                    val createdAt = it.getString(5)
-                    hashedPassword = userPassword
-                    user = User(userId, userUsername, userPassword, userRole, createdAt)
-                }
+            if (hasher.matches(password, hashedPassword)) {
+                //login
+                currentUser = user
+                logger.info("Login successful: User [{}]", user.id)
+                return true
             }
+            logger.warn("An attempt to log in occurred but password mismatched.  User [{}]", user.id)
+            return false
+        } catch (e: IllegalStateException) {
+            logger.error("An illegal state has been detected.", e)
+            logger.info("Terminating program due to illegal state...")
+            exitProcess(255)
+        } catch (e: SQLException) {
+            logger.error("A database error occurred", e)
+            logger.info("Terminating program due to error...")
+            exitProcess(255)
         }
-        val hasher = Argon2PasswordEncoder(32, 128, 1, 15 * 1024, 2)
-
-        if (hasher.matches(password, hashedPassword)) {
-            //login
-            currentUser = user
-            return true
-        }
-        return false
     }
 
     override fun logout() {
+        logger.info("User {} logged out", currentUser!!.id)
         currentUser = null
     }
 
@@ -211,17 +236,21 @@ class MothUserManagerImpl(
     }
 
     fun createProfile(firstName: String, lastName: String, email: String?, telephone: String?, address: String?) {
-        if (currentUser == null) throw IllegalStateException("User must be logged in to create profile")
+        if (currentUser == null) throw IllegalStateException("A user must be logged in to create profile")
         val profile = Profile(currentUser!!.id, firstName, lastName, email, address, telephone)
         profileManager.createProfile(profile)
     }
 
     private fun createRoleTable(connection: Connection) {
+        val tableName = "role"
+        logger.info("Checking for table '{}' existence...", tableName)
         if (MothDatabaseImpl.tableExists("role", connection)) {
             connection.close()
+            logger.info("Table '{}' found", tableName)
             return
         }
 
+        logger.info("Creating table '{}'...", tableName)
         connection.use {
             it.createStatement().use {
                 it.execute("CREATE TABLE IF NOT EXISTS `role`(role VARCHAR(20) PRIMARY KEY NOT NULL)")
@@ -229,22 +258,28 @@ class MothUserManagerImpl(
                 it.execute("INSERT INTO `role` VALUES('admin')")
             }
         }
+        logger.info("Table '{}' created", tableName)
     }
 
     /**
      * Creates user table if not created.
      */
     private fun createUserTable(connection: Connection) {
+        val tableName = "user"
+        logger.info("Checking for table '{}' existence...", tableName)
         if (MothDatabaseImpl.tableExists("user", connection)) {
+            logger.info("Table '{}' found", tableName)
             connection.close()
             return
         }
 
+        logger.info("Creating table '{}'...", tableName)
         connection.use {
             it.createStatement().use {
                 it.execute("CREATE TABLE IF NOT EXISTS `user`(id VARCHAR(7) PRIMARY KEY NOT NULL, username VARCHAR(10) UNIQUE NOT NULL, password VARCHAR(128) NOT NULL, role VARCHAR(32) NOT NULL, created_at TEXT NOT NULL DEFAULT (datetime('now', 'localtime')), FOREIGN KEY (role) REFERENCES role(role))")
             }
         }
+        logger.info("Table '{}' created", tableName)
     }
 
     /**
