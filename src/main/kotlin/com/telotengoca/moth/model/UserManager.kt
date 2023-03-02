@@ -1,5 +1,6 @@
 package com.telotengoca.moth.model
 
+import com.telotengoca.moth.logger.MothLoggerFactory
 import com.telotengoca.moth.utils.HexUtils
 import com.telotengoca.moth.utils.IDUtils
 import org.casbin.jcasbin.main.Enforcer
@@ -7,8 +8,10 @@ import org.springframework.security.crypto.argon2.Argon2PasswordEncoder
 import java.security.SecureRandom
 import java.security.spec.KeySpec
 import java.sql.Connection
+import java.sql.SQLException
 import javax.crypto.SecretKeyFactory
 import javax.crypto.spec.PBEKeySpec
+import kotlin.system.exitProcess
 
 data class User(
     val id: String,
@@ -23,6 +26,7 @@ data class User(
  */
 interface MothUserManager {
     fun createUser(username: String, password: String)
+    fun updateRole(username: String, newRole: String)
     fun login(username: String, password: String): Boolean
     fun logout()
     fun checkPermission(user: String, resource: String, permission: String): Boolean
@@ -47,6 +51,7 @@ class MothUserManagerImpl(
         private set
 
     companion object {
+        private val logger = MothLoggerFactory.getLogger(MothUserManager::class.java)
         private const val ID_LENGTH = 7
         private const val DEFAULT_ROLE = "user"
         /**
@@ -60,7 +65,8 @@ class MothUserManagerImpl(
         CREATE,
         READ,
         UPDATE,
-        DELETE;
+        DELETE,
+        CHANGE_ROLE;
 
         val value: String
             get() = name.lowercase()
@@ -74,57 +80,74 @@ class MothUserManagerImpl(
 
     override fun createUser(username: String, password: String) {
 
-        // check user is logged in
-        if (currentUser == null) {
-            throw NoUserLoggedInException("No user is logged in")
-        }
+        try {
+            // check user is logged in
+            if (currentUser == null) {
+                throw NoUserLoggedInException("No user is logged in")
+            }
 
-        // check user permission
-        if (!checkPermission(currentUser!!.username, RESOURCE, Permissions.CREATE.value)) {
-            throw SecurityException("User has no permission to create new user")
-        }
+            // check user permission
+            if (!checkPermission(currentUser!!.username, RESOURCE, Permissions.CREATE.value)) {
+                throw SecurityException("User has no permission to create new user")
+            }
 
-        // check that username doesn't exist
-        database.connectDatabase().use {
-            it.prepareStatement("SELECT COUNT(*) FROM `user` WHERE `username` = ?").use {
-                it.setString(1, username)
-                it.executeQuery().use {
-                    it.next()
-                    val count = it.getInt(1)
-                    if (count > 0) throw UsernameExistsException(username)
+            // check that username doesn't exist
+            database.connectDatabase().use {
+                it.prepareStatement("SELECT COUNT(*) FROM `user` WHERE `username` = ?").use {
+                    it.setString(1, username)
+                    it.executeQuery().use {
+                        it.next()
+                        val count = it.getInt(1)
+                        if (count > 0) throw UsernameExistsException(username)
+                    }
                 }
             }
-        }
 
-        // make sure id generated is truly unique
-        var id: String
-        val connection = database.connectDatabase()
-        connection.prepareStatement("SELECT COUNT(*) FROM `user` WHERE `id` = ?").use {
-            while (true) {
-                id = IDUtils.generateRandomId(ID_LENGTH)
-                it.setString(1, id)
-                val result: Int
-                it.executeQuery().use {
-                    it.next()
-                    result = it.getInt(1)
-                }
-                if (result == 0) break
-            }
-        }
-
-        database.connectDatabase().use {
-            it.prepareStatement("INSERT INTO `user`(id, username, password, role) VALUES(?, ?, ?, ?)").use {
-                it.setString(1, id)
-                it.setString(2, username)
-                it.setString(3, password)
-                it.setString(4, DEFAULT_ROLE)
-
-                it.executeUpdate().also {
-                    check(it == 1)
+            // make sure id generated is truly unique
+            var id: String
+            val connection = database.connectDatabase()
+            connection.prepareStatement("SELECT COUNT(*) FROM `user` WHERE `id` = ?").use {
+                while (true) {
+                    id = IDUtils.generateRandomId(ID_LENGTH)
+                    it.setString(1, id)
+                    val result: Int
+                    it.executeQuery().use {
+                        it.next()
+                        result = it.getInt(1)
+                    }
+                    if (result == 0) break
                 }
             }
+
+            database.connectDatabase().use {
+                it.prepareStatement("INSERT INTO `user`(id, username, password, role) VALUES(?, ?, ?, ?)").use {
+                    it.setString(1, id)
+                    it.setString(2, username)
+                    it.setString(3, password)
+                    it.setString(4, DEFAULT_ROLE)
+
+                    it.executeUpdate().also {
+                        check(it == 1)
+                    }
+                }
+            }
+        } catch (e: SQLException) {
+            logger.error("SQL exception occurred. {}", )
+            exitProcess(255)
         }
 
+    }
+
+    override fun updateRole(username: String, newRole: String) {
+        try {
+
+        if (!checkPermission(currentUser!!.username, RESOURCE, Permissions.CHANGE_ROLE.value)) {
+            throw SecurityException("User has no permission to change roles")
+        }
+        } catch (e: SecurityException) {
+            // TODO: log
+            logger
+        }
     }
 
     class NoUserLoggedInException(message: String) : RuntimeException(message)

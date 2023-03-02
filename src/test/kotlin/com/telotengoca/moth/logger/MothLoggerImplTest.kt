@@ -1,11 +1,10 @@
 package com.telotengoca.moth.logger
 
-import com.telotengoca.moth.model.MothDatabase
-import com.telotengoca.moth.model.MothDatabaseImpl
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 import java.io.File
+import java.sql.SQLException
 import java.util.*
 
 class MothLoggerImplTest {
@@ -15,18 +14,20 @@ class MothLoggerImplTest {
 
         @JvmStatic
         @BeforeAll
-        fun `setup db`() {
+        fun `delete prior logs`() {
             val props = Properties()
             props.load(this::class.java.getResourceAsStream("/config.properties"))
 
             val dbDir = props.getProperty("DATABASE_DIR")
             val logdbFile = props.getProperty("LOG_DATABASE_FILE")
 
+            // delete log database
             File("$dbDir/$logdbFile").run {
                 delete()
                 assertFalse(exists())
             }
 
+            // delete log file
             val logsDir = props.getProperty("LOG_DIR")
             val logFile = props.getProperty("LOG_FILE")
 
@@ -35,8 +36,7 @@ class MothLoggerImplTest {
                 assertFalse(exists())
             }
 
-            val database: MothDatabase = MothDatabaseImpl()
-            logger = MothLoggerImpl.getInstance(database)
+            logger = MothLoggerFactory.getLogger(MothLoggerImplTest::class.java)
         }
     }
 
@@ -62,5 +62,14 @@ class MothLoggerImplTest {
     @Test
     fun `test that we can log an warn message`() {
         logger.warn("This is a warn log message")
+    }
+
+    @Test
+    fun `test that we can log an exception`() {
+        try {
+            throw SQLException("Database error")
+        } catch (e: SQLException) {
+            logger.error("A database error has happened: ", e)
+        }
     }
 }
