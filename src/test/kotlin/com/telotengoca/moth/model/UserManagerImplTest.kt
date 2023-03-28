@@ -2,6 +2,7 @@ package com.telotengoca.moth.model
 
 import org.casbin.jcasbin.main.Enforcer
 import org.junit.jupiter.api.AfterAll
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Timeout
@@ -9,6 +10,7 @@ import org.springframework.security.crypto.argon2.Argon2PasswordEncoder
 import java.io.File
 import java.sql.Connection
 import java.sql.DriverManager
+import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.system.measureTimeMillis
 
@@ -76,10 +78,30 @@ class UserManagerImplTest {
     }
 
     @Test
-    fun `test that we can create users`() {
+    fun `test that we cannot create users if not logged in`() {
         val username = "username1"
         val password = "Username1="
-        testUserManager.createUser(username, password)
+        val role = "user"
+        assertThrowsExactly(UserManagerImpl.NoUserLoggedInException::class.java) {
+            testUserManager.createUser(username, password, role)
+        }
+    }
+
+
+    @Test
+    fun `test that we can create users as root`() {
+
+        val props = Properties().apply { load(this@UserManagerImplTest::class.java.getResourceAsStream("/config.properties")) }
+        val rootPassword = props.getProperty("ROOT_PASSWORD")
+
+        val username = "username1"
+        val password = "Username1="
+        val role = "user"
+        val logged = testUserManager.login("root", rootPassword)
+
+        assertTrue(logged)
+
+        testUserManager.createUser(username, password, role)
         testDatabase.connectDatabase().use {
             it.createStatement().use {
                 it.executeQuery("SELECT * FROM `user` WHERE `username` = '$username'").use {
@@ -88,6 +110,42 @@ class UserManagerImplTest {
                     assert(it.getRow() == 1)
                     val savedUsername = it.getString("username")
                     assert(savedUsername.equals(username))
+                }
+            }
+        }
+
+        testUserManager.logout()
+    }
+
+    @Test
+    fun `test that we can create root user` () {
+
+        val rootId = "0"
+        val rootUsername = "root"
+        val rootRole = "admin"
+
+
+        testDatabase.connectDatabase().use {
+            it.prepareStatement("SELECT COUNT(*) FROM `user` WHERE `id` = ?").use {
+                it.setString(1, rootId)
+
+                it.executeQuery().use {
+                    it.next()
+
+                    val count = it.getInt(1)
+                    assertEquals(1, count)
+                }
+            }
+
+            it.prepareStatement("SELECT * FROM `user` WHERE `id` = ?").use {
+                it.setString(1, rootId)
+
+                it.executeQuery().use {
+                    it.next()
+
+                    assertEquals(rootId, it.getString(1))
+                    assertEquals(rootUsername, it.getString(2))
+                    assertEquals(rootRole, it.getString(4))
                 }
             }
         }
@@ -114,5 +172,37 @@ class UserManagerImplTest {
         println("Time for compare: " + timeToCompare)
 
         assert(result)
+    }
+
+    private fun createRootUser() {
+        val prop = Properties()
+        prop.load(this::class.java.getResourceAsStream("/config.properties"))
+
+        val rootId = "0"
+        val rootUsername = "root"
+        val rootPassword = prop.getProperty("ROOT_PASSWORD")
+        val rootRole = "admin"
+
+        testDatabase.connectDatabase().use {
+            it.prepareStatement("SELECT COUNT(*) FROM `user` WHERE `id` = ? AND `username` = ?").use {
+                it.setString(1, rootId)
+                it.setString(2, rootUsername)
+
+                it.executeQuery().use {
+                    it.next()
+                    val count = it.getInt(1)
+                    if (count != 0) return
+                }
+            }
+
+            it.prepareStatement("INSERT INTO `user`(id, username, password, role) VALUES(?, ?, ?, ?)").use {
+                it.setString(1, rootId)
+                it.setString(2, rootUsername)
+                it.setString(3, rootPassword)
+                it.setString(4, rootRole)
+
+                it.executeUpdate()
+            }
+        }
     }
 }

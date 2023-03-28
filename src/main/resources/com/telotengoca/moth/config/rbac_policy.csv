@@ -14,6 +14,15 @@ p, admin, retention, read
 p, admin, retention, write
 p, admin, retention, update
 p, admin, retention, delete
-p, user, vendor, read
-g, user1, admin
-g, user2, user
+p, admin, credit_note, read
+p, admin, credit_note, write
+p, admin, credit_note, update
+p, admin, credit_note, delete
+p, admin, debit_note, read
+p, admin, debit_note, update
+p, admin, debit_note, write
+p, admin, debit_note, delete
+p, admin, user, read
+p, admin, user, create
+p, admin, user, update
+p, admin, user, delete

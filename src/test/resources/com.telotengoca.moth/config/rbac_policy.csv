@@ -22,5 +22,9 @@ p, admin, debit_note, read
 p, admin, debit_note, update
 p, admin, debit_note, write
 p, admin, debit_note, delete
+p, admin, user, read
+p, admin, user, create
+p, admin, user, update
+p, admin, user, delete
 g, user1, admin
 g, user2, user

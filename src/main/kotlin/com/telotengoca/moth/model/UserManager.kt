@@ -1,16 +1,12 @@
 package com.telotengoca.moth.model
 
 import com.telotengoca.moth.logger.MothLoggerFactory
-import com.telotengoca.moth.utils.HexUtils
 import com.telotengoca.moth.utils.IDUtils
 import org.casbin.jcasbin.main.Enforcer
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder
-import java.security.SecureRandom
-import java.security.spec.KeySpec
 import java.sql.Connection
 import java.sql.SQLException
-import javax.crypto.SecretKeyFactory
-import javax.crypto.spec.PBEKeySpec
+import java.util.*
 import kotlin.system.exitProcess
 
 data class User(
@@ -26,12 +22,18 @@ data class User(
  */
 interface UserManager {
     val currentUser: User?
-    fun createUser(username: String, password: String)
+    fun createUser(username: String, password: String, role: String)
     fun updateRole(username: String, newRole: String)
     fun login(username: String, password: String): Boolean
     fun logout()
-    fun checkPermission(user: String, resource: String, permission: String): Boolean
+    fun checkPermission(id: String, resource: String, permission: String): Boolean
 }
+
+private const val SALT_LENGTH = 32
+private const val HASH_LENGTH = 128
+private const val PARALLELISM = 1
+private const val MEMORY = 15 * 1024
+private const val ITERATIONS = 10
 
 /**
  * This user manager uses a sqlite database to save users and role.
@@ -40,12 +42,28 @@ class UserManagerImpl(
     private val database: MothDatabase,
     private val policyEnforcer: Enforcer,
     private val profileManager: MothProfileManager
-) : UserManager {
+) : UserManager     {
+
+    /**
+     * Argon2 password encoder
+     */
+    private val hasher
+        get() = Argon2PasswordEncoder(SALT_LENGTH, HASH_LENGTH, PARALLELISM, MEMORY, ITERATIONS)
+
+    enum class Role {
+        ADMIN,
+        USER;
+
+        val value: String
+            get() = name.lowercase()
+    }
 
     init {
         // create tables if they don't exist
         createUserTable(database.connectDatabase())
         createRoleTable(database.connectDatabase())
+        // create root user
+        createRootUser()
     }
 
     override var currentUser: User? = null
@@ -59,10 +77,13 @@ class UserManagerImpl(
          * Defines the name of the object/resource to check against the permission enforcer
          */
         const val RESOURCE: String = "user"
+        private const val ROOT_USERNAME = "root"
+        private const val ROOT_ID = "0"
+        private const val ROOT_ROLE = "admin"
 
     }
 
-    enum class Permissions {
+    enum class Permission {
         CREATE,
         READ,
         UPDATE,
@@ -73,8 +94,7 @@ class UserManagerImpl(
             get() = name.lowercase()
     }
 
-    override fun createUser(username: String, password: String) {
-
+    override fun createUser(username: String, password: String, role: String) {
         try {
             // check user is logged in
             if (currentUser == null) {
@@ -82,9 +102,12 @@ class UserManagerImpl(
             }
 
             // check user permission
-            if (!checkPermission(currentUser!!.username, RESOURCE, Permissions.CREATE.value)) {
+            if (!checkPermission(currentUser!!.id, RESOURCE, Permission.CREATE.value)) {
                 throw SecurityPolicyViolation("User has no permission to create new user")
             }
+
+            // check role is valid
+            if (role !in Role.values().map { it.value }) throw IllegalArgumentException("Role is not valid")
 
             // check that username doesn't exist
             database.connectDatabase().use {
@@ -114,11 +137,14 @@ class UserManagerImpl(
                 }
             }
 
+            // hash password
+            val hashedPassword = hasher.encode(password)
+
             database.connectDatabase().use {
                 it.prepareStatement("INSERT INTO `user`(id, username, password, role) VALUES(?, ?, ?, ?)").use {
                     it.setString(1, id)
                     it.setString(2, username)
-                    it.setString(3, password)
+                    it.setString(3, hashedPassword)
                     it.setString(4, DEFAULT_ROLE)
 
                     it.executeUpdate().also {
@@ -126,6 +152,9 @@ class UserManagerImpl(
                     }
                 }
             }
+
+            val result = policyEnforcer.addRoleForUser(id, role)
+            check(result)
         } catch (e: SQLException) {
             logger.error("SQL exception occurred", e)
             logger.info("Terminating program due to error...")
@@ -136,7 +165,7 @@ class UserManagerImpl(
 
     override fun updateRole(username: String, newRole: String) {
         logger.info("User [{}] tries to update role of target user [{}] to role '{}'", currentUser!!.id, username, newRole)
-        if (!checkPermission(currentUser!!.username, RESOURCE, Permissions.CHANGE_ROLE.value)) {
+        if (!checkPermission(currentUser!!.id, RESOURCE, Permission.CHANGE_ROLE.value)) {
             throw SecurityPolicyViolation("User has no permission to change roles")
         }
         TODO("update role for user")
@@ -182,7 +211,7 @@ class UserManagerImpl(
                         val count = it.getInt(1)
 
                         if (count == 0){
-                            logger.info("An attempt to login occurred but not user was found")
+//                            logger.info("An attempt to login occurred but not user was found")
                             return false
                         }
 
@@ -206,7 +235,6 @@ class UserManagerImpl(
                     }
                 }
             }
-            val hasher = Argon2PasswordEncoder(32, 128, 1, 15 * 1024, 2)
 
             if (hasher.matches(password, hashedPassword)) {
                 //login
@@ -214,7 +242,7 @@ class UserManagerImpl(
                 logger.info("Login successful: User [{}]", user.id)
                 return true
             }
-            logger.warn("An attempt to log in occurred but password mismatched.  User [{}]", user.id)
+//            logger.warn("An attempt to log in occurred but password mismatched.  User [{}]", user.id)
             return false
         } catch (e: IllegalStateException) {
             logger.error("An illegal state has been detected.", e)
@@ -232,8 +260,8 @@ class UserManagerImpl(
         currentUser = null
     }
 
-    override fun checkPermission(user: String, resource: String, permission: String): Boolean {
-        return policyEnforcer.enforce(user, resource, permission)
+    override fun checkPermission(id: String, resource: String, permission: String): Boolean {
+        return policyEnforcer.enforce(id, resource, permission)
     }
 
     fun createProfile(firstName: String, lastName: String, email: String?, telephone: String?, address: String?) {
@@ -284,16 +312,42 @@ class UserManagerImpl(
     }
 
     /**
-     * Hash a string using PBKDF2 algorithm.
-     * @return a string of 32 characters of length
+     * creates root user. This run every time the app is started but only one root is created.
      */
-    private fun hashPassword(password: String): String {
-        val random = SecureRandom()
-        val salt = ByteArray(16)
-        random.nextBytes(salt)
-        val spec: KeySpec = PBEKeySpec(IDUtils.generateRandomId(8).toCharArray(), salt, 65536, 128)
-        val factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1")
-        val hash = factory.generateSecret(spec).encoded
-        return HexUtils.bytesToHex(hash)
+    private fun createRootUser() {
+        val props = Properties()
+        props.load(this::class.java.getResourceAsStream("/config.properties"))
+
+        // get root password from config file
+        // we could ask the user to create this password the first time the app is booted
+        // instead of relaying in a config file
+        val rootPassword = props.getProperty("ROOT_PASSWORD")
+        val hashedRootPassword = hasher.encode(rootPassword)
+
+        database.connectDatabase().use {
+            it.prepareStatement("SELECT COUNT(*) FROM `user` WHERE `id` = ?").use {
+                it.setString(1, ROOT_ID)
+
+                it.executeQuery().use {
+                    it.next()
+                    val count = it.getInt(1)
+                    if (count != 0) return
+                    logger.info("root has not yet been created")
+                }
+            }
+
+            logger.info("Creating root user...")
+            it.prepareStatement("INSERT INTO `user`(id, username, password, role) VALUES(?, ?, ?, ?)").use {
+                it.setString(1, ROOT_ID)
+                it.setString(2, ROOT_USERNAME)
+                it.setString(3, hashedRootPassword)
+                it.setString(4, ROOT_ROLE)
+
+                check(it.executeUpdate() == 1)
+            }
+        }
+
+        check(policyEnforcer.addRoleForUser(ROOT_ID, ROOT_ROLE))
+        logger.info("root created")
     }
 }
