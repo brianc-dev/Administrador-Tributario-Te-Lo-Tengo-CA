@@ -71,6 +71,10 @@ class UserManagerImpl(
 
     companion object {
         private val logger = MothLoggerFactory.getLogger(UserManager::class.java)
+
+        /**
+         * Length for any user ID. Only root has 1-character id.
+         */
         private const val ID_LENGTH = 7
         private const val DEFAULT_ROLE = "user"
         /**
@@ -83,6 +87,9 @@ class UserManagerImpl(
 
     }
 
+    /**
+     * Describes permissions for this resource
+     */
     enum class Permission {
         CREATE,
         READ,
@@ -255,11 +262,22 @@ class UserManagerImpl(
         }
     }
 
+    /**
+     * Logs out current user
+     */
     override fun logout() {
         logger.info("User {} logged out", currentUser!!.id)
         currentUser = null
     }
 
+    /**
+     * Checks for permission using permission enforcer.
+     * Id is used to check for permission since it won't change unlike username.
+     * @param id the id of the user
+     * @param resource the name of the resource to act upon. E.g: vendor, user, invoice...
+     * @param permission the type of permission. E.g: read, create, update, delete...
+     * @return true if the subject is allowed. false otherwise.
+     */
     override fun checkPermission(id: String, resource: String, permission: String): Boolean {
         return policyEnforcer.enforce(id, resource, permission)
     }
@@ -270,6 +288,9 @@ class UserManagerImpl(
         profileManager.createProfile(profile)
     }
 
+    /**
+     * Creates role table for roles if not created.
+     */
     private fun createRoleTable(connection: Connection) {
         val tableName = "role"
         logger.info("Checking for table '{}' existence...", tableName)
@@ -321,7 +342,7 @@ class UserManagerImpl(
     }
 
     /**
-     * creates root user. This run every time the app is started but only one root is created.
+     * Creates root user. This run every time the app is started but only one root is created.
      */
     private fun createRootUser() {
         val props = Properties()
