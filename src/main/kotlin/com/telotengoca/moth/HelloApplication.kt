@@ -14,7 +14,3 @@ class HelloApplication : Application() {
         stage.show()
     }
 }
-
-fun main() {
-    Application.launch(HelloApplication::class.java)
-}

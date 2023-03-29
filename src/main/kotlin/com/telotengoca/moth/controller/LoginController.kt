@@ -3,14 +3,20 @@ package com.telotengoca.moth.controller
 import com.telotengoca.moth.logger.MothLoggerFactory
 import com.telotengoca.moth.model.UserManager
 import javafx.fxml.FXML
-import javafx.scene.text.Text
+import javafx.scene.control.Button
+import javafx.scene.control.PasswordField
+import javafx.scene.control.TextField
 
 class LoginController(private val userManager: UserManager) {
 
     @FXML
-    private lateinit var userText: Text
+    private lateinit var usernameText: TextField
     @FXML
-    private lateinit var passwordText: Text
+    private lateinit var passwordText: PasswordField
+    @FXML
+    private lateinit var loginButton: Button
+    @FXML
+    private lateinit var exitButton: Button
 
     companion object {
         private val logger = MothLoggerFactory.getLogger(LoginController::class.java)
@@ -22,7 +28,8 @@ class LoginController(private val userManager: UserManager) {
             // TODO: Goto home window
         } else {
             logger.info("An attempt to log in occurred but failed")
-            // TODO: User or password incorrect 
+            // TODO: User or password incorrect
+
         }
     }
 }

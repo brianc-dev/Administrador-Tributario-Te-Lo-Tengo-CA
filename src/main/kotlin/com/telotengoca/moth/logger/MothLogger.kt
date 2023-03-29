@@ -3,6 +3,7 @@ package com.telotengoca.moth.logger
 import com.telotengoca.moth.model.MothDatabase
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import java.io.File
 import java.sql.DriverManager
 import java.util.*
 
@@ -39,18 +40,43 @@ class MothLoggerImpl2(clazz: Class<*>): MothLogger {
     companion object {
 
         init {
-            createLoggerTables()
+            createLoggerDatabase()
+            createLoggerDir()
         }
 
-        private fun createLoggerTables() {
+        private fun createLoggerDir() {
+            val props = Properties()
+            props.load(this::class.java.getResourceAsStream("/config.properties"))
+
+            val logDir = props.getProperty("LOG_DIR")
+            val logFile = props.getProperty("LOG_FILE")
+
+            File(logDir).also {
+                if (!it.exists()) it.mkdir()
+            }
+
+            File("$logDir/$logFile").also {
+                if (!it.exists()) it.createNewFile()
+            }
+        }
+
+        private fun createLoggerDatabase() {
 
             val props = Properties()
             props.load(this::class.java.getResourceAsStream("/config.properties"))
 
             val dbDir = props.getProperty("DATABASE_DIR")
-            val logdbFile = props.getProperty("LOG_DATABASE_FILE")
+            val logDbFile = props.getProperty("LOG_DATABASE_FILE")
 
-            val con = DriverManager.getConnection("jdbc:sqlite:$dbDir/$logdbFile")
+            File(dbDir).also {
+                if (!it.exists()) it.mkdir()
+            }
+
+            File("$dbDir/$logDbFile").also {
+                if (!it.exists()) it.createNewFile()
+            }
+
+            val con = DriverManager.getConnection("jdbc:sqlite:$dbDir/$logDbFile")
 
             con.use {
                 it.createStatement().use {

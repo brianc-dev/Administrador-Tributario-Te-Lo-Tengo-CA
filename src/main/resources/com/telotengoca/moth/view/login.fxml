@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.telotengoca.moth.controller.LoginController">
    <children>
       <Label text="Label" />
-      <TextField fx:id="username" prefHeight="24.0" prefWidth="319.0" promptText="User" />
-      <PasswordField promptText="Password">
+      <TextField fx:id="usernameText" prefHeight="18.0" prefWidth="461.0" promptText="Username" />
+      <PasswordField fx:id="passwordText" promptText="Password">
          <VBox.margin>
             <Insets left="64.0" right="64.0" top="16.0" />
          </VBox.margin>
       </PasswordField>
+      <Button fx:id="loginButton" mnemonicParsing="false" text="Iniciar Sesion" />
+      <Button fx:id="exitButton" mnemonicParsing="false" text="Salir" />
    </children>
 </VBox>

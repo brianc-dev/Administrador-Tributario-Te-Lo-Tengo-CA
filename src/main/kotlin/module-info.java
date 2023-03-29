@@ -11,6 +11,6 @@ module com.telotengoca.moth {
     requires ch.qos.logback.classic;
     requires ch.qos.logback.core;
 
-    opens com.telotengoca.moth to javafx.fxml;
+    opens com.telotengoca.moth.controller to javafx.fxml;
     exports com.telotengoca.moth;
 }

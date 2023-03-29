@@ -283,8 +283,17 @@ class UserManagerImpl(
         connection.use {
             it.createStatement().use {
                 it.execute("CREATE TABLE IF NOT EXISTS `role`(role VARCHAR(20) PRIMARY KEY NOT NULL)")
-                it.execute("INSERT INTO `role` VALUES('user')")
-                it.execute("INSERT INTO `role` VALUES('admin')")
+
+                // iterate enum and insert if not found
+                Role.values().forEach { role ->
+                    it.executeQuery("SELECT COUNT(*) FROM `role` WHERE `role`.`role` = '${role.value}'").use { rs ->
+                        rs.next()
+                        if (rs.getInt(1) == 0) {
+                            val result = it.executeUpdate("INSERT INTO `role`(`role`) VALUES('${role.value}')")
+                            check(result == 1)
+                        }
+                    }
+                }
             }
         }
         logger.info("Table '{}' created", tableName)

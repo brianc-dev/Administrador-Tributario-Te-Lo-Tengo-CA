@@ -1,6 +1,7 @@
 package com.telotengoca.moth.model
 
 import org.casbin.jcasbin.main.Enforcer
+import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 
@@ -24,6 +25,13 @@ class EnforcerTest {
                 )
             val rbacPolicyUri = rbacPolicy.toURI()
             enforcer = Enforcer(rbacModelUri.path, rbacPolicyUri.path)
+        }
+
+        @JvmStatic
+        @AfterAll
+        fun tearDown() {
+            enforcer.roleManager.clear()
+            enforcer.clearPolicy()
         }
     }
 

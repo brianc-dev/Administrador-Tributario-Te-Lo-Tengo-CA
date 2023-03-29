@@ -31,6 +31,7 @@ class MothDatabaseImpl: MothDatabase {
          * @param connection connection to database where to check. Database must be a SQLite database
          */
         fun tableExists(table: String, connection: Connection): Boolean {
+            // TODO: Fix this. Seems to not be working
             connection.prepareStatement("SELECT name FROM sqlite_master WHERE type='table' AND name = ?").use {
                 it.setString(1, table)
                 it.executeQuery().use {
