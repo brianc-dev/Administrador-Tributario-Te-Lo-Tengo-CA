@@ -13,6 +13,6 @@
          </VBox.margin>
       </PasswordField>
       <Button fx:id="loginButton" mnemonicParsing="false" text="Iniciar Sesion" />
-      <Button fx:id="exitButton" mnemonicParsing="false" text="Salir" />
+      <Button fx:id="exitButton" mnemonicParsing="false" onAction="#onExitButtonActionListener" text="Salir" />
    </children>
 </VBox>

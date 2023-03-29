@@ -6,6 +6,7 @@ import javafx.fxml.FXML
 import javafx.scene.control.Button
 import javafx.scene.control.PasswordField
 import javafx.scene.control.TextField
+import kotlin.system.exitProcess
 
 class LoginController(private val userManager: UserManager) {
 
@@ -21,6 +22,7 @@ class LoginController(private val userManager: UserManager) {
     companion object {
         private val logger = MothLoggerFactory.getLogger(LoginController::class.java)
     }
+
     private fun login(username: String, password: String) {
         if (userManager.login(username, password)) {
             logger.info("User [{}] successfully logged in", userManager.currentUser!!.id)
@@ -31,5 +33,11 @@ class LoginController(private val userManager: UserManager) {
             // TODO: User or password incorrect
 
         }
+    }
+
+    @FXML
+    private fun onExitButtonActionListener() {
+        logger.info("Shutting down app...")
+        exitProcess(0)
     }
 }
