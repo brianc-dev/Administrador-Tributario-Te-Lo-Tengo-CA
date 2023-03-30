@@ -2,7 +2,7 @@ package com.telotengoca.moth
 
 import com.telotengoca.moth.controller.LoginController
 import com.telotengoca.moth.model.MothDatabaseImpl
-import com.telotengoca.moth.model.MothProfileManagerImpl
+import com.telotengoca.moth.model.ProfileManagerImpl
 import com.telotengoca.moth.model.UserManagerImpl
 import javafx.application.Application
 import javafx.fxml.FXMLLoader
@@ -24,7 +24,7 @@ class MainApplication : Application() {
             )
 
             val database = MothDatabaseImpl()
-            val profileManager = MothProfileManagerImpl(database)
+            val profileManager = ProfileManagerImpl(database)
             val enforcer = Enforcer(rbacModel.path, rbacPolicy.path)
             val userManager = UserManagerImpl(database, enforcer, profileManager)
             LoginController(userManager)

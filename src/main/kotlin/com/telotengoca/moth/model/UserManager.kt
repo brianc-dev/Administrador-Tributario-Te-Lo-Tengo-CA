@@ -41,8 +41,8 @@ private const val ITERATIONS = 10
 class UserManagerImpl(
     private val database: MothDatabase,
     private val policyEnforcer: Enforcer,
-    private val profileManager: MothProfileManager
-) : UserManager     {
+    private val profileManager: ProfileManager
+) : UserManager, ProfileManager by profileManager {
 
     /**
      * Argon2 password encoder
@@ -60,8 +60,8 @@ class UserManagerImpl(
 
     init {
         // create tables if they don't exist
-        createUserTable(database.connectDatabase())
         createRoleTable(database.connectDatabase())
+        createUserTable(database.connectDatabase())
         // create root user
         createRootUser()
     }
@@ -335,7 +335,7 @@ class UserManagerImpl(
         logger.info("Creating table '{}'...", tableName)
         connection.use {
             it.createStatement().use {
-                it.execute("CREATE TABLE IF NOT EXISTS `user`(id VARCHAR(7) PRIMARY KEY NOT NULL, username VARCHAR(10) UNIQUE NOT NULL, password VARCHAR(128) NOT NULL, role VARCHAR(32) NOT NULL, created_at TEXT NOT NULL DEFAULT (datetime('now', 'localtime')), FOREIGN KEY (role) REFERENCES role(role))")
+                it.execute("CREATE TABLE IF NOT EXISTS `user`(id VARCHAR(7) PRIMARY KEY NOT NULL, username VARCHAR(10) UNIQUE NOT NULL, password VARCHAR(128) NOT NULL, role VARCHAR(20) NOT NULL, created_at TEXT NOT NULL DEFAULT (datetime('now', 'localtime')), FOREIGN KEY (role) REFERENCES role(role))")
             }
         }
         logger.info("Table '{}' created", tableName)

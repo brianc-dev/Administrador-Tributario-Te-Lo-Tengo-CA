@@ -14,7 +14,7 @@ data class Profile(
     val telephone: String?
 )
 
-interface MothProfileManager {
+interface ProfileManager {
     fun createProfile(profile: Profile)
     fun getProfile(userId: String): Profile?
 }
@@ -22,7 +22,7 @@ interface MothProfileManager {
 /**
  * Class to manage user profiles. This must be connected to same database as UserManager.
  */
-class MothProfileManagerImpl(private val database: MothDatabase) : MothProfileManager {
+class ProfileManagerImpl(private val database: MothDatabase): ProfileManager {
 
     init {
         createProfileTable()
@@ -87,7 +87,7 @@ class MothProfileManagerImpl(private val database: MothDatabase) : MothProfileMa
     private fun createProfileTable() {
         database.connectDatabase().use {
             it.createStatement().use { stm ->
-                stm.execute("CREATE TABLE IF NOT EXISTS `profile`(`user_id` VARCHAR(7) PRIMARY KEY NOT NULL, `firstName` VARCHAR(30), `lastName` VARCHAR(30) NOT NULL, `email` TEXT, `address` VARCHAR(150), `telephone` VARCHAR(15), FOREIGN KEY (user_id) REFERENCES user(id))")
+                stm.execute("CREATE TABLE IF NOT EXISTS `profile`(`user_id` VARCHAR(7) PRIMARY KEY NOT NULL, `firstName` VARCHAR(30) NOT NULL, `lastName` VARCHAR(30), `email` TEXT, `address` VARCHAR(150), `telephone` VARCHAR(15), FOREIGN KEY (user_id) REFERENCES user(id))")
             }
         }
     }

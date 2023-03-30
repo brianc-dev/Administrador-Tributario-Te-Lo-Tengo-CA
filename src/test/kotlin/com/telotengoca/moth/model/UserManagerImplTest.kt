@@ -60,7 +60,7 @@ class UserManagerImplTest {
 
             }
 
-            val profileManager = MothProfileManagerImpl(testDatabase)
+            val profileManager = ProfileManagerImpl(testDatabase)
             testUserManager = UserManagerImpl(testDatabase, Enforcer(model, policy), profileManager)
         }
 
