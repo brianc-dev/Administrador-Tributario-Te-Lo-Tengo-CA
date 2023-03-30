@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="897b57ad-50b4-4948-a99c-5a46e37fec83" name="Changes" comment="Fixed some bugs. Renamed ProfileManager interface">
+    <list default="true" id="897b57ad-50b4-4948-a99c-5a46e37fec83" name="Changes" comment="Changed some database tables">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/ProfileManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/ProfileManager.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/UserManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/UserManager.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -290,7 +290,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680138133359</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Changed some database tables">
+      <created>1680155238374</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1680155238374</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -321,7 +328,8 @@
     <MESSAGE value="Added documentation to UserManager" />
     <MESSAGE value="Exit button" />
     <MESSAGE value="Fixed some bugs. Renamed ProfileManager interface" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed some bugs. Renamed ProfileManager interface" />
+    <MESSAGE value="Changed some database tables" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed some database tables" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -329,12 +337,12 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/UserManager.kt</url>
-          <line>132</line>
+          <line>136</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/UserManager.kt</url>
-          <line>135</line>
+          <line>139</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
@@ -344,7 +352,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/UserManager.kt</url>
-          <line>309</line>
+          <line>313</line>
           <properties>
             <option name="lambda-ordinal" value="-1" />
           </properties>

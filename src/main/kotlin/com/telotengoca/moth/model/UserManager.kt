@@ -12,10 +12,14 @@ import kotlin.system.exitProcess
 data class User(
     val id: String,
     val username: String,
-    private val password: String,
+    val password: String,
     val role: String,
     val createAt: String
-)
+) {
+    override fun toString(): String {
+        return "User(id: $id, role: $role, created at: $createAt)"
+    }
+}
 
 /**
  * Describes a user manager object
@@ -266,7 +270,7 @@ class UserManagerImpl(
      * Logs out current user
      */
     override fun logout() {
-        logger.info("User {} logged out", currentUser!!.id)
+        logger.info("User {} logged out", currentUser?.id ?: "NULL")
         currentUser = null
     }
 
