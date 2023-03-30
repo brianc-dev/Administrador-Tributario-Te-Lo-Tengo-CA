@@ -1,5 +1,6 @@
 package com.telotengoca.moth.model
 
+import com.telotengoca.moth.logger.MothLoggerFactory
 import java.sql.SQLIntegrityConstraintViolationException
 
 /**
@@ -23,6 +24,10 @@ interface ProfileManager {
  * Class to manage user profiles. This must be connected to same database as UserManager.
  */
 class ProfileManagerImpl(private val database: MothDatabase): ProfileManager {
+
+    companion object {
+        private val logger = MothLoggerFactory.getLogger(ProfileManager::class.java)
+    }
 
     init {
         createProfileTable()
@@ -85,10 +90,19 @@ class ProfileManagerImpl(private val database: MothDatabase): ProfileManager {
      * user_id references `id` column in `user` table
      */
     private fun createProfileTable() {
+        val tableName = "profile"
+        logger.info("Checking for table '{}' existence...", tableName)
+        if (MothDatabaseImpl.tableExists(tableName, database.connectDatabase())) {
+            logger.info("Table '{}' found", tableName)
+            return
+        }
+
+        logger.info("Creating table '{}'...", tableName)
         database.connectDatabase().use {
             it.createStatement().use { stm ->
                 stm.execute("CREATE TABLE IF NOT EXISTS `profile`(`user_id` VARCHAR(7) PRIMARY KEY NOT NULL, `firstName` VARCHAR(30) NOT NULL, `lastName` VARCHAR(30), `email` TEXT, `address` VARCHAR(150), `telephone` VARCHAR(15), FOREIGN KEY (user_id) REFERENCES user(id))")
             }
         }
+        logger.info("Table '{}' created", tableName)
     }
 }
