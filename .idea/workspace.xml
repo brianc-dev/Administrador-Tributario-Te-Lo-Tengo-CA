@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="897b57ad-50b4-4948-a99c-5a46e37fec83" name="Changes" comment="fixed typos and reformatted tests.">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/CompanyManager.kt" afterDir="false" />
+    <list default="true" id="897b57ad-50b4-4948-a99c-5a46e37fec83" name="Changes" comment="moved test implementation to production implementation.">
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/controller/CompanyController.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/telotengoca/moth/view/companies.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/com/telotengoca/moth/model/CompanyManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/com/telotengoca/moth/model/CompanyManager.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,11 +19,11 @@
       <list>
         <option value="Kotlin Data Class" />
         <option value="JUnit5 Test Class" />
-        <option value="Kotlin Class" />
-        <option value="FxmlFile" />
         <option value="Kotlin Interface" />
         <option value="Kotlin Object" />
         <option value="Kotlin File" />
+        <option value="Kotlin Class" />
+        <option value="FxmlFile" />
       </list>
     </option>
   </component>
@@ -387,7 +387,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681509594486</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="moved test implementation to production implementation.">
+      <created>1681510616003</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1681510616003</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -444,7 +451,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="added ProfileManager" />
     <MESSAGE value="added login" />
     <MESSAGE value="added log file and log database. Also added implementation for logger" />
     <MESSAGE value="check for permission in MothUserManagerImpl" />
@@ -469,7 +475,8 @@
     <MESSAGE value="Fixed database error." />
     <MESSAGE value="added another test" />
     <MESSAGE value="fixed typos and reformatted tests." />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed typos and reformatted tests." />
+    <MESSAGE value="moved test implementation to production implementation." />
+    <option name="LAST_COMMIT_MESSAGE" value="moved test implementation to production implementation." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
