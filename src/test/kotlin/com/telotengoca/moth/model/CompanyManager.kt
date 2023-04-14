@@ -132,10 +132,6 @@ class CompanyManagerImpl(private val database: MothDatabase) : CompanyManager {
 }
 
 class CompanyManageImplTest() {
-    companion object {
-
-
-    }
 
     private var companyManager: CompanyManager? = null
 
@@ -157,6 +153,36 @@ class CompanyManageImplTest() {
 
     @Test
     fun `test we can add a company`() {
+        // given
+        val rif = "J123456789"
+        val name = "RandomCompany"
+        val address = "546 st. random place"
+        val telephone = "+121231234567"
+        val telephone2 = "+121231234567"
+        val email = "example@example.com"
+        val alias = "MyCompany"
+
+        val company = Company(
+            rif,
+            name,
+            address,
+            telephone,
+            telephone2,
+            email,
+            alias
+        )
+         // when
+        companyManager?.addCompany(company)
+        // then
+        companyManager?.getCompanies()?.also {
+            assert(company in it)
+            assert(it[0].rif == company.rif)
+        }
+    }
+
+    @Test
+    fun `test that we can delete a company`() {
+        // given
         val rif = "J123456789"
         val name = "RandomCompany"
         val address = "546 st. random place"
@@ -175,10 +201,14 @@ class CompanyManageImplTest() {
             alias
         )
 
+        // when
         companyManager?.addCompany(company)
+        companyManager?.deleteCompany(company.rif)
 
+        // then
         companyManager?.getCompanies()?.also {
-            assert(company in it)
+            assert(it.isEmpty())
         }
+
     }
 }

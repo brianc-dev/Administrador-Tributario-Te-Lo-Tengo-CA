@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="897b57ad-50b4-4948-a99c-5a46e37fec83" name="Changes" comment="added helper object to delete database in tests.">
+    <list default="true" id="897b57ad-50b4-4948-a99c-5a46e37fec83" name="Changes" comment="Fixed database error.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/kotlin/com/telotengoca/moth/model/CompanyManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/com/telotengoca/moth/model/CompanyManager.kt" afterDir="false" />
     </list>
@@ -100,7 +100,7 @@
       <recent name="com.telotengoca.moth.printer" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.CompanyManageImplTest.test we can add a company">
+  <component name="RunManager" selected="JUnit.CompanyManageImplTest">
     <configuration name="CompanyManageImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Moth" />
       <extension name="coverage">
@@ -112,6 +112,22 @@
       <option name="PACKAGE_NAME" value="com.telotengoca.moth.model" />
       <option name="MAIN_CLASS_NAME" value="com.telotengoca.moth.model.CompanyManageImplTest" />
       <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CompanyManageImplTest.test that we can delete a company" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Moth" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.telotengoca.moth.model.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.telotengoca.moth.model" />
+      <option name="MAIN_CLASS_NAME" value="com.telotengoca.moth.model.CompanyManageImplTest" />
+      <option name="METHOD_NAME" value="test that we can delete a company" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -148,21 +164,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MothLoggerImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Moth" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.telotengoca.moth.logger.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.telotengoca.moth.logger" />
-      <option name="MAIN_CLASS_NAME" value="com.telotengoca.moth.logger.MothLoggerImplTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="MainApplicationKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.telotengoca.moth.MainApplicationKt" />
       <module name="Moth" />
@@ -185,11 +186,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.CompanyManageImplTest.test we can add a company" />
         <item itemvalue="JUnit.CompanyManageImplTest" />
+        <item itemvalue="JUnit.CompanyManageImplTest.test that we can delete a company" />
+        <item itemvalue="JUnit.CompanyManageImplTest.test we can add a company" />
         <item itemvalue="JUnit.CompanyManageImplTest.test" />
         <item itemvalue="Kotlin.MainApplicationKt" />
-        <item itemvalue="JUnit.MothLoggerImplTest" />
       </list>
     </recent_temporary>
   </component>
@@ -356,7 +357,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681492604118</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Fixed database error.">
+      <created>1681495634813</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1681495634813</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -435,7 +443,8 @@
     <MESSAGE value="addCompany implemented." />
     <MESSAGE value="working on tests..." />
     <MESSAGE value="added helper object to delete database in tests." />
-    <option name="LAST_COMMIT_MESSAGE" value="added helper object to delete database in tests." />
+    <MESSAGE value="Fixed database error." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed database error." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
