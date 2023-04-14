@@ -50,7 +50,7 @@ class CompanyManagerImpl(private val database: MothDatabase) : CompanyManager {
                 }
             }
 
-            con.prepareStatement("INSET INTO `$TABLE_NAME`(`rif`, `name`, `address`, `telephone`,`telephone_2`, `email`, `alias`) VALUES(?, ?, ?, ?, ?, ?, ?)").use {stm ->
+            con.prepareStatement("INSERT INTO `$TABLE_NAME`(`rif`, `name`, `address`, `telephone`,`telephone_2`, `email`, `alias`) VALUES(?, ?, ?, ?, ?, ?, ?)").use {stm ->
                 stm.setString(1, company.rif)
                 stm.setString(2, company.name)
                 stm.setString(3, company.address)
@@ -153,5 +153,32 @@ class CompanyManageImplTest() {
     @Test
     fun `test`() {
         check(true)
+    }
+
+    @Test
+    fun `test we can add a company`() {
+        val rif = "J123456789"
+        val name = "RandomCompany"
+        val address = "546 st. random place"
+        val telephone = "+121231234567"
+        val telephone2 = "+121231234567"
+        val email = "example@example.com"
+        val alias = "MyCompany"
+
+        val company = Company(
+            rif,
+            name,
+            address,
+            telephone,
+            telephone2,
+            email,
+            alias
+        )
+
+        companyManager?.addCompany(company)
+
+        companyManager?.getCompanies()?.also {
+            assert(company in it)
+        }
     }
 }
