@@ -50,18 +50,19 @@ class CompanyManagerImpl(private val database: MothDatabase) : CompanyManager {
                 }
             }
 
-            con.prepareStatement("INSERT INTO `$TABLE_NAME`(`rif`, `name`, `address`, `telephone`,`telephone_2`, `email`, `alias`) VALUES(?, ?, ?, ?, ?, ?, ?)").use {stm ->
-                stm.setString(1, company.rif)
-                stm.setString(2, company.name)
-                stm.setString(3, company.address)
-                stm.setString(4, company.telephone)
-                stm.setString(5, company.telephone2)
-                stm.setString(6, company.email)
-                stm.setString(7, company.alias)
+            con.prepareStatement("INSERT INTO `$TABLE_NAME`(`rif`, `name`, `address`, `telephone`,`telephone_2`, `email`, `alias`) VALUES(?, ?, ?, ?, ?, ?, ?)")
+                .use { stm ->
+                    stm.setString(1, company.rif)
+                    stm.setString(2, company.name)
+                    stm.setString(3, company.address)
+                    stm.setString(4, company.telephone)
+                    stm.setString(5, company.telephone2)
+                    stm.setString(6, company.email)
+                    stm.setString(7, company.alias)
 
-                val result = stm.executeUpdate()
-                check(result == 1)
-            }
+                    val result = stm.executeUpdate()
+                    check(result == 1)
+                }
         }
     }
 
@@ -131,7 +132,7 @@ class CompanyManagerImpl(private val database: MothDatabase) : CompanyManager {
     }
 }
 
-class CompanyManageImplTest() {
+class CompanyManagerImplTest {
 
     private var companyManager: CompanyManager? = null
 
@@ -171,7 +172,7 @@ class CompanyManageImplTest() {
             email,
             alias
         )
-         // when
+        // when
         companyManager?.addCompany(company)
         // then
         companyManager?.getCompanies()?.also {
