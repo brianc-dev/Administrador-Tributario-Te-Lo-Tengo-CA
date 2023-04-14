@@ -14,7 +14,7 @@ data class Company(
 )
 
 interface CompanyManager {
-    fun add(company: Company): Unit
+    fun addCompany(company: Company): Unit
     fun getCompanies(): List<Company>
     fun deleteCompany(rif: String): Unit
 }
@@ -33,9 +33,31 @@ class CompanyManagerImpl(private val database: MothDatabase) : CompanyManager {
         createCompanyTable()
     }
 
-    override fun add(company: Company) {
+    override fun addCompany(company: Company) {
         database.connectDatabase().use { con ->
-            con.prepareStatement("SELECT COUNT(*) FROM ")
+            con.prepareStatement("SELECT COUNT(*) FROM `$TABLE_NAME` WHERE `rif` = ?").use { stm ->
+                stm.setString(1, company.rif)
+                stm.executeQuery().use { rs ->
+                    val result = rs.next()
+                    check(result)
+                    val count = rs.getInt(1)
+                    if (count > 0) throw CompanyRIFDuplicated("The RIF is already registered.")
+                    require(count == 0)
+                }
+            }
+
+            con.prepareStatement("INSET INTO `$TABLE_NAME`(`rif`, `name`, `address`, `telephone`,`telephone_2`, `email`, `alias`) VALUES(?, ?, ?, ?, ?, ?, ?)").use {stm ->
+                stm.setString(1, company.rif)
+                stm.setString(2, company.name)
+                stm.setString(3, company.address)
+                stm.setString(4, company.telephone)
+                stm.setString(5, company.telephone2)
+                stm.setString(6, company.email)
+                stm.setString(7, company.alias)
+
+                val result = stm.executeUpdate()
+                check(result == 1)
+            }
         }
     }
 
