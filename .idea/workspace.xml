@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="897b57ad-50b4-4948-a99c-5a46e37fec83" name="Changes" comment="added another test">
+    <list default="true" id="897b57ad-50b4-4948-a99c-5a46e37fec83" name="Changes" comment="fixed typos and reformatted tests.">
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/CompanyManager.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/kotlin/com/telotengoca/moth/model/CompanyManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/com/telotengoca/moth/model/CompanyManager.kt" afterDir="false" />
     </list>
@@ -21,8 +22,8 @@
         <option value="Kotlin Class" />
         <option value="FxmlFile" />
         <option value="Kotlin Interface" />
-        <option value="Kotlin File" />
         <option value="Kotlin Object" />
+        <option value="Kotlin File" />
       </list>
     </option>
   </component>
@@ -100,7 +101,7 @@
       <recent name="com.telotengoca.moth.printer" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.CompanyManageImplTest">
+  <component name="RunManager" selected="JUnit.CompanyManagerImplTest">
     <configuration name="CompanyManageImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Moth" />
       <extension name="coverage">
@@ -164,9 +165,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MainApplicationKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.telotengoca.moth.MainApplicationKt" />
+    <configuration name="CompanyManagerImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Moth" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.telotengoca.moth.model.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.telotengoca.moth.model" />
+      <option name="MAIN_CLASS_NAME" value="com.telotengoca.moth.model.CompanyManagerImplTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -186,11 +195,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.CompanyManagerImplTest" />
         <item itemvalue="JUnit.CompanyManageImplTest" />
         <item itemvalue="JUnit.CompanyManageImplTest.test that we can delete a company" />
         <item itemvalue="JUnit.CompanyManageImplTest.test we can add a company" />
         <item itemvalue="JUnit.CompanyManageImplTest.test" />
-        <item itemvalue="Kotlin.MainApplicationKt" />
       </list>
     </recent_temporary>
   </component>
@@ -371,7 +380,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681497738851</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="fixed typos and reformatted tests.">
+      <created>1681509594486</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1681509594486</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -452,7 +468,8 @@
     <MESSAGE value="added helper object to delete database in tests." />
     <MESSAGE value="Fixed database error." />
     <MESSAGE value="added another test" />
-    <option name="LAST_COMMIT_MESSAGE" value="added another test" />
+    <MESSAGE value="fixed typos and reformatted tests." />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed typos and reformatted tests." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
