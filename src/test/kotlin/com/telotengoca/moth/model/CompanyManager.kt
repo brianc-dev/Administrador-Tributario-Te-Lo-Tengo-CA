@@ -11,7 +11,7 @@ data class Company(
     val telephone2: String?,
     val email: String?,
     val alias: String
-    )
+)
 
 interface CompanyManager {
     fun add(company: Company): Unit
@@ -34,20 +34,40 @@ class CompanyManagerImpl(private val database: MothDatabase) : CompanyManager {
     }
 
     override fun add(company: Company) {
-        database.connectDatabase().use {con ->
+        database.connectDatabase().use { con ->
             con.prepareStatement("SELECT COUNT(*) FROM ")
         }
     }
 
     override fun getCompanies(): List<Company> {
-        TODO("Not yet implemented")
+        val companies = mutableListOf<Company>()
+        database.connectDatabase().use { con ->
+            con.createStatement().use { stm ->
+                stm.executeQuery("SELECT * FROM `$TABLE_NAME`").use { rs ->
+                    while (rs.next()) {
+                        val rif: String = rs.getString("rif")
+                        val name: String = rs.getString("name")
+                        val address: String? = rs.getString("address")
+                        val telephone: String? = rs.getString("telephone")
+                        val telephone2: String? = rs.getString("telephone_2")
+                        val email: String? = rs.getString("email")
+                        val alias: String = rs.getString("alias")
+
+                        val company = Company(rif, name, address, telephone, telephone2, email, alias)
+
+                        companies.add(company)
+                    }
+                }
+            }
+        }
+        return companies
     }
 
     override fun deleteCompany(rif: String) {
         database.connectDatabase().use { con ->
             con.prepareStatement("SELECT COUNT(*) FROM `$TABLE_NAME` WHERE `rif` = ?").use { stm ->
                 stm.setString(1, rif)
-                stm.executeQuery().use {rs->
+                stm.executeQuery().use { rs ->
                     val check = rs.next()
                     check(check)
                     val count = rs.getInt(1)
@@ -56,7 +76,7 @@ class CompanyManagerImpl(private val database: MothDatabase) : CompanyManager {
                 }
             }
 
-            con.prepareStatement("DELETE FROM `$TABLE_NAME` WHERE `rif` = ?").use {stm ->
+            con.prepareStatement("DELETE FROM `$TABLE_NAME` WHERE `rif` = ?").use { stm ->
                 stm.setString(1, rif)
                 val result = stm.executeUpdate()
                 check(result == 1)
@@ -76,7 +96,7 @@ class CompanyManagerImpl(private val database: MothDatabase) : CompanyManager {
 
             logger.info("Creating table '{}'...", TABLE_NAME)
 
-            con.createStatement().use {stm ->
+            con.createStatement().use { stm ->
                 stm.execute("CREATE TABLE IF NOT EXISTS `$TABLE_NAME`(`rif` VARCHAR(10)  PRIMARY KEY NOT NULL, `name` VARCHAR(50) NOT NULL, `address` VARCHAR(100), `telephone` VARCHAR(15), `telephone_2` VARCHAR(15), `email` VARCHAR(254), `alias` VARCHAR(50) NOT NULL)")
             }
 
