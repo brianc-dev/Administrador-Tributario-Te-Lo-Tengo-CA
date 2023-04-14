@@ -2,7 +2,10 @@ package com.telotengoca.moth.model
 
 import com.telotengoca.moth.logger.MothLogger
 import com.telotengoca.moth.logger.MothLoggerFactory
+import com.telotengoca.moth.utils.Database
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 
 data class Company(
     val rif: String,
@@ -130,19 +133,25 @@ class CompanyManagerImpl(private val database: MothDatabase) : CompanyManager {
 
 class CompanyManageImplTest() {
     companion object {
-        private var companyManager: CompanyManager? = null
 
-        @BeforeEach
-        @JvmStatic
-        fun `setup manager`() {
-            val database: MothDatabase = MothDatabaseImpl()
-            companyManager = CompanyManagerImpl(database)
-        }
 
-        @BeforeEach
-        @JvmStatic
-        fun `tear`() {
+    }
 
-        }
+    private var companyManager: CompanyManager? = null
+
+    @BeforeEach
+    fun `setup manager`() {
+        val database = MothDatabaseImpl()
+        companyManager = CompanyManagerImpl(database)
+    }
+
+    @AfterEach
+    fun `tear`() {
+        Database.deleteDatabase()
+    }
+
+    @Test
+    fun `test`() {
+        check(true)
     }
 }

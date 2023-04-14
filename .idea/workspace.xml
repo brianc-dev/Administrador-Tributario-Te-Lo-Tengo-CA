@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="897b57ad-50b4-4948-a99c-5a46e37fec83" name="Changes" comment="addCompany implemented.">
+    <list default="true" id="897b57ad-50b4-4948-a99c-5a46e37fec83" name="Changes" comment="working on tests...">
+      <change afterPath="$PROJECT_DIR$/src/test/kotlin/com/telotengoca/moth/utils/Database.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/kotlin/com/telotengoca/moth/model/CompanyManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/com/telotengoca/moth/model/CompanyManager.kt" afterDir="false" />
     </list>
@@ -18,11 +19,11 @@
       <list>
         <option value="Kotlin Data Class" />
         <option value="JUnit5 Test Class" />
-        <option value="Kotlin Object" />
         <option value="Kotlin Class" />
         <option value="FxmlFile" />
         <option value="Kotlin Interface" />
         <option value="Kotlin File" />
+        <option value="Kotlin Object" />
       </list>
     </option>
   </component>
@@ -100,8 +101,8 @@
       <recent name="com.telotengoca.moth.printer" />
     </key>
   </component>
-  <component name="RunManager" selected="Kotlin.MainApplicationKt">
-    <configuration name="EnforcerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.CompanyManageImplTest">
+    <configuration name="CompanyManageImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Moth" />
       <extension name="coverage">
         <pattern>
@@ -110,8 +111,24 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.telotengoca.moth.model" />
-      <option name="MAIN_CLASS_NAME" value="com.telotengoca.moth.model.EnforcerTest" />
+      <option name="MAIN_CLASS_NAME" value="com.telotengoca.moth.model.CompanyManageImplTest" />
       <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CompanyManageImplTest.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Moth" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.telotengoca.moth.model.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.telotengoca.moth.model" />
+      <option name="MAIN_CLASS_NAME" value="com.telotengoca.moth.model.CompanyManageImplTest" />
+      <option name="METHOD_NAME" value="test" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -146,21 +163,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserManagerImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Moth" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.telotengoca.moth.model.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.telotengoca.moth.model" />
-      <option name="MAIN_CLASS_NAME" value="com.telotengoca.moth.model.UserManagerImplTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="MainApplicationKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.telotengoca.moth.MainApplicationKt" />
       <module name="Moth" />
@@ -183,11 +185,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.CompanyManageImplTest" />
+        <item itemvalue="JUnit.CompanyManageImplTest.test" />
         <item itemvalue="Kotlin.MainApplicationKt" />
         <item itemvalue="JUnit.MothLoggerImplTest" />
         <item itemvalue="JUnit.LoggerTest" />
-        <item itemvalue="JUnit.EnforcerTest" />
-        <item itemvalue="JUnit.UserManagerImplTest" />
       </list>
     </recent_temporary>
   </component>
@@ -340,7 +342,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681461816435</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="working on tests...">
+      <created>1681462774808</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1681462774808</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -395,6 +404,8 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="added ProfileManager" />
     <MESSAGE value="added login" />
     <MESSAGE value="added log file and log database. Also added implementation for logger" />
@@ -415,7 +426,8 @@
     <MESSAGE value="deleteCompany function defined." />
     <MESSAGE value="getCompanies implemented." />
     <MESSAGE value="addCompany implemented." />
-    <option name="LAST_COMMIT_MESSAGE" value="addCompany implemented." />
+    <MESSAGE value="working on tests..." />
+    <option name="LAST_COMMIT_MESSAGE" value="working on tests..." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -433,6 +445,11 @@
             <option name="lambda-ordinal" value="-1" />
           </properties>
           <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/test/kotlin/com/telotengoca/moth/utils/Database.kt</url>
+          <line>10</line>
+          <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
