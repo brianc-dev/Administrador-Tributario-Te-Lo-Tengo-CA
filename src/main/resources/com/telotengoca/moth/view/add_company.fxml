@@ -2,7 +2,7 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<AnchorPane prefHeight="473.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.telotengoca.moth.controller.CompanyController">
+<AnchorPane prefHeight="473.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.telotengoca.moth.controller.AddCompanyController">
    <children>
       <VBox layoutX="39.0" layoutY="35.0">
          <children>
@@ -47,6 +47,6 @@
          </children>
       </VBox>
       <Button fx:id="cancelButton" layoutX="276.0" layoutY="398.0" mnemonicParsing="false" onAction="#onCancelButtonActionListener" text="Cancel" />
-      <Button fx:id="addCompanyButton" layoutX="374.0" layoutY="398.0" mnemonicParsing="false" text="Add" />
+      <Button fx:id="addCompanyButton" layoutX="374.0" layoutY="398.0" mnemonicParsing="false" onAction="#onAddCompanyButtonActionListener" text="Add" />
    </children>
 </AnchorPane>
