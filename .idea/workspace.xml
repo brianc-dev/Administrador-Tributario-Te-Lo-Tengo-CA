@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="897b57ad-50b4-4948-a99c-5a46e37fec83" name="Changes" comment="Added another controller for add_company view.">
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/com/telotengoca/moth/javafx/CompanyView.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/com/telotengoca/moth/javafx/CompanyView.kt" afterDir="false" />
+    <list default="true" id="897b57ad-50b4-4948-a99c-5a46e37fec83" name="Changes" comment="Renamed CompanyView to CompanyViewTest">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/controller/AddCompanyController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/controller/AddCompanyController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/utils/utils.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/utils/utils.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -410,7 +412,21 @@
       <option name="project" value="LOCAL" />
       <updated>1681540071738</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="Rename CompanyView to CompanyViewTest">
+      <created>1681540294790</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1681540294790</updated>
+    </task>
+    <task id="LOCAL-00032" summary="Renamed CompanyView to CompanyViewTest">
+      <created>1681540342478</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1681540342480</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -467,8 +483,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="added logs. Renamed MothUserManager to UserManager" />
-    <MESSAGE value="added current user property to UserManager interface" />
     <MESSAGE value="Added root user. Added hasher as property" />
     <MESSAGE value="App starts" />
     <MESSAGE value="Fixed tableExists function" />
@@ -492,7 +506,9 @@
     <MESSAGE value="adding test for company view and controller." />
     <MESSAGE value="added test view for company controller." />
     <MESSAGE value="Added another controller for add_company view." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added another controller for add_company view." />
+    <MESSAGE value="Rename CompanyView to CompanyViewTest" />
+    <MESSAGE value="Renamed CompanyView to CompanyViewTest" />
+    <option name="LAST_COMMIT_MESSAGE" value="Renamed CompanyView to CompanyViewTest" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">

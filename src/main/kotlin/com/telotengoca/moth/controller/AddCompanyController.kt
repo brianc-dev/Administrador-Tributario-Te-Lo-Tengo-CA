@@ -4,15 +4,11 @@ import com.telotengoca.moth.model.Company
 import com.telotengoca.moth.model.CompanyManager
 import com.telotengoca.moth.model.CompanyManagerImpl
 import com.telotengoca.moth.model.MothDatabaseImpl
+import com.telotengoca.moth.utils.ViewUtils
 import javafx.event.ActionEvent
 import javafx.fxml.FXML
-import javafx.fxml.FXMLLoader
-import javafx.scene.Node
-import javafx.scene.Parent
-import javafx.scene.Scene
 import javafx.scene.control.Button
 import javafx.scene.control.TextField
-import javafx.stage.Stage
 
 class AddCompanyController {
     private val companyManager: CompanyManager = CompanyManagerImpl(MothDatabaseImpl())
@@ -38,11 +34,7 @@ class AddCompanyController {
 
     @FXML
     private fun onCancelButtonActionListener(event: ActionEvent) {
-        val root: Parent = FXMLLoader.load(this::class.java.getResource("../view/companies.fxml"))
-        val stage = (event.source as Node).scene.window as Stage
-        val scene = Scene(root)
-        stage.scene = scene
-        stage.show()
+        ViewUtils.changeToView("companies", event)
     }
 
     @FXML
@@ -59,10 +51,6 @@ class AddCompanyController {
 
         companyManager.addCompany(company)
 
-        val root: Parent = FXMLLoader.load(this::class.java.getResource("../view/companies.fxml"))
-        val stage = (event.source as Node).scene.window as Stage
-        val scene = Scene(root)
-        stage.scene = scene
-        stage.show()
+        ViewUtils.changeToView("companies", event)
     }
 }

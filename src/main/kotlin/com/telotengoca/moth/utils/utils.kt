@@ -1,5 +1,11 @@
 package com.telotengoca.moth.utils
 
+import javafx.event.ActionEvent
+import javafx.fxml.FXMLLoader
+import javafx.scene.Node
+import javafx.scene.Parent
+import javafx.scene.Scene
+import javafx.stage.Stage
 import java.security.SecureRandom
 
 object IDUtils {
@@ -30,5 +36,15 @@ object HexUtils {
             hexString.append(hex)
         }
         return hexString.toString()
+    }
+}
+
+object ViewUtils {
+    fun changeToView(fxmlFile: String, event: ActionEvent) {
+        val root: Parent = FXMLLoader.load(this::class.java.getResource("../view/$fxmlFile.fxml"))
+        val stage = (event.source as Node).scene.window as Stage
+        val scene = Scene(root)
+        stage.scene = scene
+        stage.show()
     }
 }
