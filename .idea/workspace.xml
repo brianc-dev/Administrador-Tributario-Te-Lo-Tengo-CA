@@ -4,9 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="897b57ad-50b4-4948-a99c-5a46e37fec83" name="Changes" comment="Added helper object to change fxml view.">
+    <list default="true" id="897b57ad-50b4-4948-a99c-5a46e37fec83" name="Changes" comment="Added Apache commons validation and Jakarta Bean validation dependencies.">
+      <change afterPath="$PROJECT_DIR$/src/test/kotlin/com/telotengoca/moth/validation/ValidationTest.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/telotengoca/moth/view/add_company.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/telotengoca/moth/view/add_company.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/telotengoca/moth/view/companies.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/telotengoca/moth/view/companies.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,7 +103,7 @@
       <recent name="com.telotengoca.moth.printer" />
     </key>
   </component>
-  <component name="RunManager" selected="Kotlin.CompanyViewKt">
+  <component name="RunManager" selected="JUnit.ValidationTest">
     <configuration name="CompanyManageImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Moth" />
       <extension name="coverage">
@@ -112,22 +115,6 @@
       <option name="PACKAGE_NAME" value="com.telotengoca.moth.model" />
       <option name="MAIN_CLASS_NAME" value="com.telotengoca.moth.model.CompanyManageImplTest" />
       <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CompanyManageImplTest.test that we can delete a company" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Moth" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.telotengoca.moth.model.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.telotengoca.moth.model" />
-      <option name="MAIN_CLASS_NAME" value="com.telotengoca.moth.model.CompanyManageImplTest" />
-      <option name="METHOD_NAME" value="test that we can delete a company" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -162,6 +149,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ValidationTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Moth" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.telotengoca.moth.validation.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.telotengoca.moth.validation" />
+      <option name="MAIN_CLASS_NAME" value="com.telotengoca.moth.validation.ValidationTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="CompanyViewKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.telotengoca.moth.javafx.CompanyViewKt" />
       <module name="Moth" />
@@ -184,11 +186,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ValidationTest" />
         <item itemvalue="Kotlin.CompanyViewKt" />
         <item itemvalue="JUnit.CompanyViewTest" />
         <item itemvalue="JUnit.CompanyManagerImplTest" />
         <item itemvalue="JUnit.CompanyManageImplTest" />
-        <item itemvalue="JUnit.CompanyManageImplTest.test that we can delete a company" />
       </list>
     </recent_temporary>
   </component>
@@ -432,7 +434,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681541155152</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="Added Apache commons validation and Jakarta Bean validation dependencies.">
+      <created>1681544352558</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1681544352558</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -489,7 +498,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="App starts" />
     <MESSAGE value="Fixed tableExists function" />
     <MESSAGE value="Added documentation to UserManager" />
     <MESSAGE value="Exit button" />
@@ -514,7 +522,8 @@
     <MESSAGE value="Rename CompanyView to CompanyViewTest" />
     <MESSAGE value="Renamed CompanyView to CompanyViewTest" />
     <MESSAGE value="Added helper object to change fxml view." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added helper object to change fxml view." />
+    <MESSAGE value="Added Apache commons validation and Jakarta Bean validation dependencies." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Apache commons validation and Jakarta Bean validation dependencies." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
