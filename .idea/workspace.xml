@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="897b57ad-50b4-4948-a99c-5a46e37fec83" name="Changes" comment="Added Apache commons validation and Jakarta Bean validation dependencies.">
-      <change afterPath="$PROJECT_DIR$/src/test/kotlin/com/telotengoca/moth/validation/ValidationTest.kt" afterDir="false" />
+    <list default="true" id="897b57ad-50b4-4948-a99c-5a46e37fec83" name="Changes" comment="Initial validation test passing.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/telotengoca/moth/view/add_company.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/telotengoca/moth/view/add_company.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/telotengoca/moth/view/companies.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/telotengoca/moth/view/companies.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/com/telotengoca/moth/validation/ValidationTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/com/telotengoca/moth/validation/ValidationTest.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,26 +57,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "full.screen.before.presentation.mode": "false",
-    "last_opened_file_path": "/home/kitsuwolf/Development/IdeaProjects/Administrador tributario Te Lo Tengo CA/src/test/resources/logback-test.xml",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.26436782",
-    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices",
-    "two.files.diff.last.used.file": "/home/kitsuwolf/Development/IdeaProjects/Administrador tributario Te Lo Tengo CA/src/test/resources/logback-test.xml"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;full.screen.before.presentation.mode&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/kitsuwolf/Development/IdeaProjects/Administrador tributario Te Lo Tengo CA/src/test/resources/logback-test.xml&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.26436782&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;,
+    &quot;two.files.diff.last.used.file&quot;: &quot;/home/kitsuwolf/Development/IdeaProjects/Administrador tributario Te Lo Tengo CA/src/test/resources/logback-test.xml&quot;
   },
-  "keyToStringList": {
-    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
-      "kotlin"
+  &quot;keyToStringList&quot;: {
+    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
+      &quot;kotlin&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/test/resources/com.telotengoca.moth/config" />
@@ -441,7 +439,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681544352558</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="Initial validation test passing.">
+      <created>1681551278961</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1681551278961</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -498,7 +503,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="Fixed tableExists function" />
     <MESSAGE value="Added documentation to UserManager" />
     <MESSAGE value="Exit button" />
     <MESSAGE value="Fixed some bugs. Renamed ProfileManager interface" />
@@ -523,7 +527,8 @@
     <MESSAGE value="Renamed CompanyView to CompanyViewTest" />
     <MESSAGE value="Added helper object to change fxml view." />
     <MESSAGE value="Added Apache commons validation and Jakarta Bean validation dependencies." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added Apache commons validation and Jakarta Bean validation dependencies." />
+    <MESSAGE value="Initial validation test passing." />
+    <option name="LAST_COMMIT_MESSAGE" value="Initial validation test passing." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
