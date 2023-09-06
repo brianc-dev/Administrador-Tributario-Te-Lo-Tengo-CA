@@ -4,10 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="897b57ad-50b4-4948-a99c-5a46e37fec83" name="Changes" comment="Initial validation test passing.">
+    <list default="true" id="897b57ad-50b4-4948-a99c-5a46e37fec83" name="Changes" comment="Added test dependency for Truth and some tests.">
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/Model.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/User.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/kotlin/com/telotengoca/moth/model/UserTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/com/telotengoca/moth/validation/ValidationTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/com/telotengoca/moth/validation/ValidationTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/controller/AddCompanyController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/controller/AddCompanyController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/controller/LoginController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/controller/LoginController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/UserManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/UserManager.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/module-info.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,12 +25,13 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Kotlin Data Class" />
-        <option value="JUnit5 Test Class" />
         <option value="Kotlin Interface" />
         <option value="Kotlin Object" />
         <option value="Kotlin File" />
         <option value="FxmlFile" />
         <option value="Kotlin Class" />
+        <option value="JUnit5 Test Class" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -64,11 +72,11 @@
     &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
     &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
     &quot;full.screen.before.presentation.mode&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/kitsuwolf/Development/IdeaProjects/Administrador tributario Te Lo Tengo CA/src/test/resources/logback-test.xml&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/kitsuwolf/Development/IdeaProjects/Administrador tributario Te Lo Tengo CA/src/test/resources/com.telotengoca.moth&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.26436782&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;two.files.diff.last.used.file&quot;: &quot;/home/kitsuwolf/Development/IdeaProjects/Administrador tributario Te Lo Tengo CA/src/test/resources/logback-test.xml&quot;
   },
   &quot;keyToStringList&quot;: {
@@ -79,30 +87,31 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/test/resources/com.telotengoca.moth/config" />
       <recent name="$PROJECT_DIR$/src/test/resources/com.telotengoca.moth" />
+      <recent name="$PROJECT_DIR$/src/test/resources/com.telotengoca.moth/config" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/resources" />
+      <recent name="$PROJECT_DIR$/src/main/resources/com/telotengoca/moth" />
       <recent name="$PROJECT_DIR$/src/test/resources" />
       <recent name="$PROJECT_DIR$/src/test/resources/com.telotengoca.moth" />
-      <recent name="$PROJECT_DIR$/src/test/kotlin/com/telotengoca/moth" />
+      <recent name="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/hibernate" />
     </key>
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
-      <recent name="com.telotengoca.moth.logger" />
       <recent name="com.telotengoca.moth.model" />
+      <recent name="com.telotengoca.moth.logger" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
-      <recent name="com.telotengoca.moth.logger" />
       <recent name="com.telotengoca.moth.model" />
+      <recent name="com.telotengoca.moth.logger" />
       <recent name="com.telotengoca.moth.printer" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ValidationTest">
-    <configuration name="CompanyManageImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.UserTest">
+    <configuration name="NodeTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Moth" />
       <extension name="coverage">
         <pattern>
@@ -111,13 +120,13 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.telotengoca.moth.model" />
-      <option name="MAIN_CLASS_NAME" value="com.telotengoca.moth.model.CompanyManageImplTest" />
+      <option name="MAIN_CLASS_NAME" value="com.telotengoca.moth.model.NodeTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CompanyManagerImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UserTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Moth" />
       <extension name="coverage">
         <pattern>
@@ -126,23 +135,24 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.telotengoca.moth.model" />
-      <option name="MAIN_CLASS_NAME" value="com.telotengoca.moth.model.CompanyManagerImplTest" />
+      <option name="MAIN_CLASS_NAME" value="com.telotengoca.moth.model.UserTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CompanyViewTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UserTest.weCanSaveUser" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Moth" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.telotengoca.moth.javafx.*" />
+          <option name="PATTERN" value="com.telotengoca.moth.model.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.telotengoca.moth.javafx" />
-      <option name="MAIN_CLASS_NAME" value="com.telotengoca.moth.javafx.CompanyViewTest" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="PACKAGE_NAME" value="com.telotengoca.moth.model" />
+      <option name="MAIN_CLASS_NAME" value="com.telotengoca.moth.model.UserTest" />
+      <option name="METHOD_NAME" value="weCanSaveUser" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -184,11 +194,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.UserTest" />
+        <item itemvalue="JUnit.NodeTest" />
+        <item itemvalue="JUnit.UserTest.weCanSaveUser" />
         <item itemvalue="JUnit.ValidationTest" />
         <item itemvalue="Kotlin.CompanyViewKt" />
-        <item itemvalue="JUnit.CompanyViewTest" />
-        <item itemvalue="JUnit.CompanyManagerImplTest" />
-        <item itemvalue="JUnit.CompanyManageImplTest" />
       </list>
     </recent_temporary>
   </component>
@@ -446,7 +456,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681551278961</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="Added test dependency for Truth and some tests.">
+      <created>1681578572124</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1681578572124</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -503,7 +520,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="Added documentation to UserManager" />
     <MESSAGE value="Exit button" />
     <MESSAGE value="Fixed some bugs. Renamed ProfileManager interface" />
     <MESSAGE value="Changed some database tables" />
@@ -528,7 +544,8 @@
     <MESSAGE value="Added helper object to change fxml view." />
     <MESSAGE value="Added Apache commons validation and Jakarta Bean validation dependencies." />
     <MESSAGE value="Initial validation test passing." />
-    <option name="LAST_COMMIT_MESSAGE" value="Initial validation test passing." />
+    <MESSAGE value="Added test dependency for Truth and some tests." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added test dependency for Truth and some tests." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -541,7 +558,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/UserManager.kt</url>
-          <line>313</line>
+          <line>295</line>
           <properties>
             <option name="lambda-ordinal" value="-1" />
           </properties>

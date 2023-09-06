@@ -25,7 +25,7 @@ class LoginController(private val userManager: UserManager) {
 
     private fun login(username: String, password: String) {
         if (userManager.login(username, password)) {
-            logger.info("User [{}] successfully logged in", userManager.currentUser!!.id)
+            logger.info("User [{}] successfully logged in", userManager.currentUser!!.id!!)
             // TODO: Successfully logged in
             // TODO: Goto home window
         } else {

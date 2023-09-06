@@ -43,3 +43,8 @@ testLogs/
 testDatabase/
 logs/
 database/
+
+### Hibernate ###
+src/*/resources/hibernate.cfg.xml
+
+*.log

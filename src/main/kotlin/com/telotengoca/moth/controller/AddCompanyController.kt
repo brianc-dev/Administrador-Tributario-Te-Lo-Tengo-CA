@@ -7,10 +7,13 @@ import com.telotengoca.moth.model.MothDatabaseImpl
 import com.telotengoca.moth.utils.ViewUtils
 import javafx.event.ActionEvent
 import javafx.fxml.FXML
+import javafx.fxml.Initializable
 import javafx.scene.control.Button
 import javafx.scene.control.TextField
+import java.net.URL
+import java.util.*
 
-class AddCompanyController {
+class AddCompanyController: Initializable {
     private val companyManager: CompanyManager = CompanyManagerImpl(MothDatabaseImpl())
 
     @FXML
@@ -37,8 +40,14 @@ class AddCompanyController {
         ViewUtils.changeToView("companies", event)
     }
 
+    override fun initialize(p0: URL?, p1: ResourceBundle?) {
+
+    }
+
     @FXML
     private fun onAddCompanyButtonActionListener(event: ActionEvent) {
+
+        // Validate
         val name = nameTextField.text
         val rif = rifTextField.text
         val address = addressTextField.text

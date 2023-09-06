@@ -9,18 +9,6 @@ import java.sql.SQLException
 import java.util.*
 import kotlin.system.exitProcess
 
-data class User(
-    val id: String,
-    val username: String,
-    val password: String,
-    val role: String,
-    val createAt: String
-) {
-    override fun toString(): String {
-        return "User(id: $id, role: $role, created at: $createAt)"
-    }
-}
-
 /**
  * Describes a user manager object
  */
@@ -54,13 +42,6 @@ class UserManagerImpl(
     private val hasher
         get() = Argon2PasswordEncoder(SALT_LENGTH, HASH_LENGTH, PARALLELISM, MEMORY, ITERATIONS)
 
-    enum class Role {
-        ADMIN,
-        USER;
-
-        val value: String
-            get() = name.lowercase()
-    }
 
     init {
         // create tables if they don't exist
@@ -106,6 +87,7 @@ class UserManagerImpl(
     }
 
     override fun createUser(username: String, password: String, role: String) {
+
         try {
             // check user is logged in
             if (currentUser == null) {
@@ -113,7 +95,7 @@ class UserManagerImpl(
             }
 
             // check user permission
-            if (!checkPermission(currentUser!!.id, RESOURCE, Permission.CREATE.value)) {
+            if (!checkPermission(currentUser!!.id!!, RESOURCE, Permission.CREATE.value)) {
                 throw SecurityPolicyViolation("User has no permission to create new user")
             }
 
@@ -175,8 +157,8 @@ class UserManagerImpl(
     }
 
     override fun updateRole(username: String, newRole: String) {
-        logger.info("User [{}] tries to update role of target user [{}] to role '{}'", currentUser!!.id, username, newRole)
-        if (!checkPermission(currentUser!!.id, RESOURCE, Permission.CHANGE_ROLE.value)) {
+        logger.info("User [{}] tries to update role of target user [{}] to role '{}'", currentUser!!.id!!, username, newRole)
+        if (!checkPermission(currentUser!!.id!!, RESOURCE, Permission.CHANGE_ROLE.value)) {
             throw SecurityPolicyViolation("User has no permission to change roles")
         }
         TODO("update role for user")
@@ -242,15 +224,15 @@ class UserManagerImpl(
                         val userRole = it.getString(4)
                         val createdAt = it.getString(5)
                         hashedPassword = userPassword
-                        user = User(userId, userUsername, userPassword, userRole, createdAt)
+//                        user = User(userId, userUsername, userPassword, userRole, createdAt)
                     }
                 }
             }
 
             if (hasher.matches(password, hashedPassword)) {
                 //login
-                currentUser = user
-                logger.info("Login successful: User [{}]", user.id)
+//                currentUser = user
+//                logger.info("Login successful: User [{}]", user.id)
                 return true
             }
 //            logger.warn("An attempt to log in occurred but password mismatched.  User [{}]", user.id)
@@ -288,7 +270,7 @@ class UserManagerImpl(
 
     fun createProfile(firstName: String, lastName: String, email: String?, telephone: String?, address: String?) {
         if (currentUser == null) throw IllegalStateException("A user must be logged in to create profile")
-        val profile = Profile(currentUser!!.id, firstName, lastName, email, address, telephone)
+        val profile = Profile(currentUser!!.id!!, firstName, lastName, email, address, telephone)
         profileManager.createProfile(profile)
     }
 
@@ -385,3 +367,8 @@ class UserManagerImpl(
         logger.info("root created")
     }
 }
+
+
+data class Employee constructor(
+    val name: String
+)
