@@ -26,7 +26,7 @@ class MainApplication : Application() {
             val database = MothDatabaseImpl()
             val profileManager = ProfileManagerImpl(database)
             val enforcer = Enforcer(rbacModel.path, rbacPolicy.path)
-            val userManager = UserManagerImpl(database, enforcer, profileManager)
+            val userManager = UserManagerImpl(enforcer, profileManager)
             LoginController(userManager)
         }
 

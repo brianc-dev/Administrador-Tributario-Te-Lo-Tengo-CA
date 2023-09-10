@@ -26,12 +26,6 @@ abstract class Model {
             }
         }
 
-        protected inline fun <reified T: Model> T.update(entity: T): T {
-            factory.createEntityManager().use {em ->
-                return em.merge(entity)
-            }
-        }
-
         inline fun <reified T: Model> T.all(): List<T> {
             factory.openSession().use { session ->
                 val builder: CriteriaBuilder = session.criteriaBuilder
@@ -48,16 +42,6 @@ abstract class Model {
                 query.setParameter("id", id)
                 return query.singleResult as? T
             }
-        }
-    }
-
-    protected fun <T : Model> T.save() {
-        factory.openSession().use { session ->
-            session.beginTransaction().also { transaction ->
-                if (session.isDirty) {
-                    session.merge(this)
-                }
-            }.commit()
         }
     }
 }

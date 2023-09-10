@@ -61,7 +61,7 @@ class UserManagerImplTest {
             }
 
             val profileManager = ProfileManagerImpl(testDatabase)
-            testUserManager = UserManagerImpl(testDatabase, Enforcer(model, policy), profileManager)
+            testUserManager = UserManagerImpl(Enforcer(model, policy), profileManager)
         }
 
         @AfterAll

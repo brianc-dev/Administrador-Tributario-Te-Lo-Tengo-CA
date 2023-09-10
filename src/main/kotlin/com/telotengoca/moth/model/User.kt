@@ -14,8 +14,8 @@ enum class Role {
         get() = name.lowercase()
 }
 
-@Entity
-@Table(name = "\"user\"")
+@Entity(name = "userent")
+@Table(name = "userent")
 class User(
     @Column(name = "username")
     val username: String,
@@ -34,17 +34,19 @@ class User(
 ) : Model() {
 
     companion object: Model() {
+
+        private const val ID_LENGTH = 7
         fun create(username: String, password: String, role: Role): User {
             val createdAt = Date().time
             val updatedAt = null
-            val user: User = User(username, password, role, createdAt, updatedAt)
+            val user = User(username, password, role, createdAt, updatedAt)
             create(user)
             return user
         }
 
-        fun get(id: String): User? {
+        fun getUserById(id: String): User? {
             Model.factory.createEntityManager().use { em ->
-                val query = em.createQuery("select u from User as u where u.id = :id", User::class.java)
+                val query = em.createQuery("select u from userent as u where u.id = :id", User::class.java)
                 query.setParameter("id", id)
                 return query.singleResult
             }
@@ -52,15 +54,55 @@ class User(
 
         fun delete(id: String): User? {
             Model.factory.createEntityManager().use { em ->
-                val getQuery = em.createQuery("select u from user where u.id = :id", User::class.java)
+                val getQuery = em.createQuery("select u from userent u where u.id = :id", User::class.java)
                 getQuery.setParameter("id", id)
                 val user = getQuery.singleResult
-                val deleteQuery = em.createQuery("delete u from user where u.id = :id", User::class.java)
+                val deleteQuery = em.createQuery("delete u from userent u where u.id = :id", User::class.java)
                 deleteQuery.setParameter("id", id)
                 deleteQuery.executeUpdate()
                 return user
             }
         }
+
+        fun usernameExists(username: String): Boolean {
+            Model.factory.createEntityManager().use { em ->
+                val q = em.createQuery("select 1 from userent as u where u.username = :username")
+                q.setParameter("username", username)
+                return q.singleResult != null
+            }
+        }
+
+        fun idExists(id: String): Boolean {
+            Model.factory.createEntityManager().use { em ->
+                val q = em.createQuery("select u from userent as u where u.id = :id")
+                q.setParameter("id", id)
+                return q.singleResult != null
+            }
+        }
+
+        fun getUserByUsername(username: String): User? {
+            Model.factory.createEntityManager().use { em ->
+                val q = em.createQuery("select u from userent as u where u.username = :username", User::class.java)
+                q.setParameter("username", username)
+                return q.singleResult
+            }
+        }
+
+        fun createRoot(id: String, username: String, password: String, role: Role) {
+            val user = User(username, password, role, Date().time, null, id)
+            Model.create(user)
+        }
+
+        fun update(user: User) {
+            Model.factory.createEntityManager().use { em ->
+                em.merge(user)
+            }
+        }
+    }
+
+    fun save() {
+//        this.updatedAt = Date().time
+        update(this)
     }
 
     override fun toString(): String {
