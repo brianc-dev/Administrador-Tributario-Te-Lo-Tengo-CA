@@ -14,6 +14,7 @@ interface UserManager {
     val currentUser: User?
     fun createUser(username: String, password: String, role: String)
     fun updateRole(username: String, newRole: String)
+    fun changePassword(oldPassword: String, newPassword: String)
     fun login(username: String, password: String): Boolean
     fun logout()
     fun checkPermission(id: String, resource: String, permission: String): Boolean
@@ -144,29 +145,24 @@ class UserManagerImpl(
         )
     }
 
-    /**
-     * Exception used to indicate that a given username already exists
-     * @param username the username already existing
-     */
-    class UsernameExistsException(username: String) : Exception("$username already exists")
+    override fun changePassword(oldPassword: String, newPassword: String) {
+        checkUserIsLoggedIn()
 
-    /**
-     * Exception used to indicate no user is logged in
-     * @param message message for exception
-     */
-    class NoUserLoggedInException(message: String) : RuntimeException(message)
+        if (!checkPermission(currentUser!!.id!!, RESOURCE, Permission.UPDATE.toString())) {
+            throw SecurityPolicyViolation("User has no permission to update")
+        }
 
-    /**
-     * Exception used to indicate that a subject tried to access a resource, but the security policy rejected it.
-     * @param message message for exception
-     */
-    class SecurityPolicyViolation(message: String) : RuntimeException(message)
+        if (!hasher.matches(oldPassword, currentUser!!.password)) {
+            throw WrongPassword("The password does not match the current user's password")
+        }
 
-    /**
-     * Exception used to indicate that a user requested was not found.
-     * @param message message for exception
-     */
-    class UserNotFound(message: String) : RuntimeException(message)
+        val newHashedPassword = hasher.encode(newPassword)
+
+        val user = requireNotNull(currentUser)
+        user.password = newHashedPassword
+
+        user.save()
+    }
 
     /**
      * Logs in a new user.
@@ -264,4 +260,34 @@ class UserManagerImpl(
             throw NoUserLoggedInException("No user is logged in")
         }
     }
+
+    /**
+     * Exception used to indicate that a given username already exists
+     * @param username the username already existing
+     */
+    class UsernameExistsException(username: String) : Exception("$username already exists")
+
+    /**
+     * Exception used to indicate no user is logged in
+     * @param message message for exception
+     */
+    class NoUserLoggedInException(message: String) : RuntimeException(message)
+
+    /**
+     * Exception used to indicate that a subject tried to access a resource, but the security policy rejected it.
+     * @param message message for exception
+     */
+    class SecurityPolicyViolation(message: String) : RuntimeException(message)
+
+    /**
+     * Exception used to indicate that a user requested was not found.
+     * @param message message for exception
+     */
+    class UserNotFound(message: String) : RuntimeException(message)
+
+    /**
+     * Exception used to indicate that password does not match.
+     * @param message message for exception
+     */
+    class WrongPassword(message: String) : RuntimeException(message)
 }

@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="897b57ad-50b4-4948-a99c-5a46e37fec83" name="Changes" comment="Improved log handling. Now guard clauses are used.">
+    <list default="true" id="897b57ad-50b4-4948-a99c-5a46e37fec83" name="Changes" comment="Improved User model.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/User.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/User.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/UserManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/UserManager.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/com/telotengoca/moth/model/UserTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/com/telotengoca/moth/model/UserTest.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -481,7 +479,15 @@
       <option name="project" value="LOCAL" />
       <updated>1694342090606</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="Improved User model.">
+      <option name="closed" value="true" />
+      <created>1694346235508</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1694346235508</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -538,7 +544,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="User dataclass logic modified" />
     <MESSAGE value="Created CompanyManager.Create company table." />
     <MESSAGE value="Fixed company table statement error." />
     <MESSAGE value="deleteCompany function defined." />
@@ -563,7 +568,8 @@
     <MESSAGE value="Changed UserManager to user JPA. Now UserManager does NOT receive a database instance. We might be deleting this database as now JPA will do the job. Added new method to User class to persist data. Deleted some unused methods in base class Model. Additionally, test are passing." />
     <MESSAGE value="Now we use EntityManager and Transactions to persist objects." />
     <MESSAGE value="Improved log handling. Now guard clauses are used." />
-    <option name="LAST_COMMIT_MESSAGE" value="Improved log handling. Now guard clauses are used." />
+    <MESSAGE value="Improved User model." />
+    <option name="LAST_COMMIT_MESSAGE" value="Improved User model." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
