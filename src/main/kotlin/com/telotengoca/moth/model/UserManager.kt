@@ -133,7 +133,7 @@ class UserManagerImpl(
             throw SecurityPolicyViolation("User has no permission to change roles")
         }
 
-//        targetUser.role = Role.valueOf(newRole)
+        targetUser.role = Role.valueOf(newRole)
         targetUser.save()
 
         logger.info(

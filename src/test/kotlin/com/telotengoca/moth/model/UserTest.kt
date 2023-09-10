@@ -2,9 +2,11 @@ package com.telotengoca.moth.model
 
 
 import com.telotengoca.moth.model.Model.Companion.all
+import org.hibernate.exception.ConstraintViolationException
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 
 class UserTest {
 
@@ -18,7 +20,7 @@ class UserTest {
 
     @Test
     fun weCanGetUserById() {
-        val user = User.create("Username22", "asdfgh", Role.ADMIN)
+        val user = User.create("Username2", "asdfgh", Role.ADMIN)
 
         val result = User.getUserById(user.id!!)
 
@@ -29,9 +31,18 @@ class UserTest {
 
     @Test
     fun canCheckUsernameExists() {
-        val username = "Username1"
-        val user = User.create(username, "asdfgh", Role.ADMIN)
+        val username = "Username3"
+        User.create(username, "asdfgh", Role.ADMIN)
 
         assertTrue(User.usernameExists(username))
+    }
+
+    @Test fun insertDuplicateUsernameThrows() {
+        val username = "Username1"
+        val password = "asddfg234"
+
+        assertThrows<ConstraintViolationException> {
+            User.create(username, password, Role.ADMIN)
+        }
     }
 }

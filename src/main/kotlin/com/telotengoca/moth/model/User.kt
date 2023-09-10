@@ -2,6 +2,8 @@ package com.telotengoca.moth.model
 
 import jakarta.persistence.*
 import org.hibernate.Session
+import org.hibernate.annotations.CreationTimestamp
+import org.hibernate.annotations.UpdateTimestamp
 import java.util.*
 
 
@@ -17,19 +19,21 @@ enum class Role {
 @Entity(name = "userent")
 @Table(name = "userent")
 class User(
-    @Column(name = "username")
+    @Column(name = "username", unique = true)
     val username: String,
     @Column(name = "password")
-    val password: String,
+    var password: String,
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
-    val role: Role,
-    @Column(name = "created_at")
-    val createdAt: Long,
-    @Column(name = "updated_at", nullable = true)
-    val updatedAt: Long?,
+    var role: Role,
+    @Column(name = "created_at", updatable = false)
+    @CreationTimestamp
+    val createdAt: Date? = null,
+    @Column(name = "updated_at", nullable = true, insertable = false)
+    @UpdateTimestamp
+    val updatedAt: Date? = null,
     @Id @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id")
+    @Column(name = "id", updatable = false)
     val id: String? = null
 ) : Model() {
 
@@ -37,9 +41,7 @@ class User(
 
         private const val ID_LENGTH = 7
         fun create(username: String, password: String, role: Role): User {
-            val createdAt = Date().time
-            val updatedAt = null
-            val user = User(username, password, role, createdAt, updatedAt)
+            val user = User(username, password, role)
             create(user)
             return user
         }
@@ -54,12 +56,14 @@ class User(
 
         fun delete(id: String): User? {
             Model.factory.createEntityManager().use { em ->
+                em.transaction.begin()
                 val getQuery = em.createQuery("select u from userent u where u.id = :id", User::class.java)
                 getQuery.setParameter("id", id)
                 val user = getQuery.singleResult
                 val deleteQuery = em.createQuery("delete u from userent u where u.id = :id", User::class.java)
                 deleteQuery.setParameter("id", id)
                 deleteQuery.executeUpdate()
+                em.transaction.commit()
                 return user
             }
         }
@@ -89,19 +93,20 @@ class User(
         }
 
         fun createRoot(id: String, username: String, password: String, role: Role) {
-            val user = User(username, password, role, Date().time, null, id)
+            val user = User(username, password, role, id = id)
             Model.create(user)
         }
 
         fun update(user: User) {
             Model.factory.createEntityManager().use { em ->
+                em.transaction.begin()
                 em.merge(user)
+                em.transaction.commit()
             }
         }
     }
 
     fun save() {
-//        this.updatedAt = Date().time
         update(this)
     }
 
