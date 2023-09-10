@@ -11,10 +11,10 @@ abstract class Model {
 
         @JvmStatic
         protected fun create(entity: Any) {
-            factory.openSession().use { session ->
-                session.beginTransaction().also { transaction ->
-                    session.persist(entity)
-                }.commit()
+            factory.createEntityManager().use {em ->
+                em.transaction.begin()
+                em.persist(entity)
+                em.transaction.commit()
             }
         }
 

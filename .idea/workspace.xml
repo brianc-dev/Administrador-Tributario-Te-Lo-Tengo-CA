@@ -4,16 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="897b57ad-50b4-4948-a99c-5a46e37fec83" name="Changes" comment="Added test dependency for Truth and some tests.">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="897b57ad-50b4-4948-a99c-5a46e37fec83" name="Changes" comment="Changed UserManager to user JPA. Now UserManager does NOT receive a database instance. We might be deleting this database as now JPA will do the job. Added new method to User class to persist data. Deleted some unused methods in base class Model. Additionally, test are passing.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/MainApplication.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/MainApplication.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/Model.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/Model.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/User.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/User.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/UserManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/UserManager.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/com/telotengoca/moth/model/UserManagerImplTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/com/telotengoca/moth/model/UserManagerImplTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/com/telotengoca/moth/model/UserTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/com/telotengoca/moth/model/UserTest.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -462,7 +455,15 @@
       <option name="project" value="LOCAL" />
       <updated>1681578572124</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="Changed UserManager to user JPA. Now UserManager does NOT receive a database instance. We might be deleting this database as now JPA will do the job. Added new method to User class to persist data. Deleted some unused methods in base class Model. Additionally, test are passing.">
+      <option name="closed" value="true" />
+      <created>1694339097374</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1694339097374</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -519,7 +520,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="Exit button" />
     <MESSAGE value="Fixed some bugs. Renamed ProfileManager interface" />
     <MESSAGE value="Changed some database tables" />
     <MESSAGE value="User dataclass logic modified" />
@@ -544,7 +544,8 @@
     <MESSAGE value="Added Apache commons validation and Jakarta Bean validation dependencies." />
     <MESSAGE value="Initial validation test passing." />
     <MESSAGE value="Added test dependency for Truth and some tests." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added test dependency for Truth and some tests." />
+    <MESSAGE value="Changed UserManager to user JPA. Now UserManager does NOT receive a database instance. We might be deleting this database as now JPA will do the job. Added new method to User class to persist data. Deleted some unused methods in base class Model. Additionally, test are passing." />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed UserManager to user JPA. Now UserManager does NOT receive a database instance. We might be deleting this database as now JPA will do the job. Added new method to User class to persist data. Deleted some unused methods in base class Model. Additionally, test are passing." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -559,11 +560,6 @@
           <url>file://$PROJECT_DIR$/src/test/kotlin/com/telotengoca/moth/utils/Database.kt</url>
           <line>10</line>
           <option name="timeStamp" value="8" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/Model.kt</url>
-          <line>18</line>
-          <option name="timeStamp" value="9" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
