@@ -48,7 +48,7 @@ class UserManagerImpl(
         private set
 
     companion object {
-        private val logger = MothLoggerFactory.getLogger(UserManager::class.java)
+        private val logger = MothLoggerFactory.getLogger(UserManagerImpl::class.java)
 
         /**
          * Length for any user ID. Only root has 1-character id.
@@ -112,7 +112,7 @@ class UserManagerImpl(
             check(result)
         } catch (e: SQLException) {
             logger.error("SQL exception occurred", e)
-            logger.info("Terminating program due to error...")
+            logger.error("Terminating program due to error...")
             exitProcess(255)
         }
 
@@ -189,15 +189,15 @@ class UserManagerImpl(
                 logger.info("Login successful: User [{}]", user.id)
                 return true
             }
-            logger.warn("An attempt to log in occurred but password mismatched.  User [{}]", user.id)
+            logger.info("An attempt to log in occurred but password mismatched.  User [{}]", user.id)
             return false
         } catch (e: IllegalStateException) {
             logger.error("An illegal state has been detected.", e)
-            logger.info("Terminating program due to illegal state...")
+            logger.error("Terminating program due to illegal state...")
             exitProcess(255)
         } catch (e: SQLException) {
             logger.error("A database error occurred", e)
-            logger.info("Terminating program due to error...")
+            logger.error("Terminating program due to error...")
             exitProcess(255)
         }
     }

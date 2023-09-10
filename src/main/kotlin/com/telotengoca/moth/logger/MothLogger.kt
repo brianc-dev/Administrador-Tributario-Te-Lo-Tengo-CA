@@ -89,42 +89,52 @@ class MothLoggerImpl2(clazz: Class<*>): MothLogger {
     }
 
     override fun trace(message: String, vararg args: Any) {
+        if (!logger.isTraceEnabled) return
         logger.trace(message, args)
     }
 
     override fun trace(message: String, throwable: Throwable) {
+        if (!logger.isTraceEnabled) return
         logger.trace(message, throwable)
     }
 
     override fun debug(message: String, vararg args: Any) {
+        if (!logger.isDebugEnabled) return
         logger.debug(message, args)
     }
 
     override fun debug(message: String, throwable: Throwable) {
+        if (!logger.isDebugEnabled) return
         logger.debug(message, throwable)
     }
 
     override fun info(message: String, vararg args: Any) {
+        if (!logger.isInfoEnabled) return
         logger.info(message, args)
     }
 
     override fun info(message: String, throwable: Throwable) {
+        if (!logger.isInfoEnabled) return
         logger.info(message, throwable)
     }
 
     override fun warn(message: String, vararg args: Any) {
+        if (!logger.isWarnEnabled) return
         logger.warn(message, args)
     }
 
     override fun warn(message: String, throwable: Throwable) {
+        if (!logger.isWarnEnabled) return
         logger.warn(message, throwable)
     }
 
     override fun error(message: String, vararg args: Any) {
+        if (!logger.isErrorEnabled) return
         logger.error(message, args)
     }
 
     override fun error(message: String, throwable: Throwable) {
+        if (!logger.isErrorEnabled) return
         logger.error(message, throwable)
     }
 }

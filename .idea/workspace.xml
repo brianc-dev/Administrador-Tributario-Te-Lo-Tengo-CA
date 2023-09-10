@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="897b57ad-50b4-4948-a99c-5a46e37fec83" name="Changes" comment="Changed UserManager to user JPA. Now UserManager does NOT receive a database instance. We might be deleting this database as now JPA will do the job. Added new method to User class to persist data. Deleted some unused methods in base class Model. Additionally, test are passing.">
+    <list default="true" id="897b57ad-50b4-4948-a99c-5a46e37fec83" name="Changes" comment="Now we use EntityManager and Transactions to persist objects.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/Model.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/Model.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/logger/MothLogger.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/logger/MothLogger.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/UserManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/UserManager.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/telotengoca/moth/view/login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/telotengoca/moth/view/login.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -463,7 +465,15 @@
       <option name="project" value="LOCAL" />
       <updated>1694339097374</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="Now we use EntityManager and Transactions to persist objects.">
+      <option name="closed" value="true" />
+      <created>1694339888139</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1694339888139</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -520,7 +530,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="Fixed some bugs. Renamed ProfileManager interface" />
     <MESSAGE value="Changed some database tables" />
     <MESSAGE value="User dataclass logic modified" />
     <MESSAGE value="Created CompanyManager.Create company table." />
@@ -545,7 +554,8 @@
     <MESSAGE value="Initial validation test passing." />
     <MESSAGE value="Added test dependency for Truth and some tests." />
     <MESSAGE value="Changed UserManager to user JPA. Now UserManager does NOT receive a database instance. We might be deleting this database as now JPA will do the job. Added new method to User class to persist data. Deleted some unused methods in base class Model. Additionally, test are passing." />
-    <option name="LAST_COMMIT_MESSAGE" value="Changed UserManager to user JPA. Now UserManager does NOT receive a database instance. We might be deleting this database as now JPA will do the job. Added new method to User class to persist data. Deleted some unused methods in base class Model. Additionally, test are passing." />
+    <MESSAGE value="Now we use EntityManager and Transactions to persist objects." />
+    <option name="LAST_COMMIT_MESSAGE" value="Now we use EntityManager and Transactions to persist objects." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
