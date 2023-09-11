@@ -26,14 +26,14 @@ class User(
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
     var role: Role,
-    @Column(name = "created_at", updatable = false)
+    @Column(name = "created_at", nullable = false, updatable = false)
     @CreationTimestamp
     val createdAt: Date? = null,
-    @Column(name = "updated_at", nullable = true, insertable = false)
+    @Column(name = "updated_at", insertable = false)
     @UpdateTimestamp
     val updatedAt: Date? = null,
     @Id @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id", updatable = false)
+    @Column(name = "id", nullable = false, updatable = false)
     val id: String? = null
 ) : Model() {
 

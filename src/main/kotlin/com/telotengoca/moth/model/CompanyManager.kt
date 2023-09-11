@@ -3,16 +3,6 @@ package com.telotengoca.moth.model
 import com.telotengoca.moth.logger.MothLogger
 import com.telotengoca.moth.logger.MothLoggerFactory
 
-data class Company(
-    val rif: String,
-    val name: String,
-    val address: String?,
-    val telephone: String?,
-    val telephone2: String?,
-    val email: String?,
-    val alias: String
-)
-
 interface CompanyManager {
     fun addCompany(company: Company): Unit
     fun getCompanies(): List<Company>
