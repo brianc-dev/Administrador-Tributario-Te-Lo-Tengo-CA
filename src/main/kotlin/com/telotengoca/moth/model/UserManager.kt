@@ -65,20 +65,19 @@ class UserManagerImpl(
         private const val ROOT_ID = "0"
         private const val ROOT_ROLE = "admin"
 
-    }
+        /**
+         * Describes permissions for this resource
+         */
+        enum class Permission {
+            CREATE,
+            READ,
+            UPDATE,
+            DELETE,
+            CHANGE_ROLE;
 
-    /**
-     * Describes permissions for this resource
-     */
-    enum class Permission {
-        CREATE,
-        READ,
-        UPDATE,
-        DELETE,
-        CHANGE_ROLE;
-
-        override fun toString(): String {
-            return name.lowercase()
+            override fun toString(): String {
+                return name.lowercase()
+            }
         }
     }
 

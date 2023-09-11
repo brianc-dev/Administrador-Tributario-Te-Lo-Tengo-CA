@@ -1,9 +1,7 @@
 package com.telotengoca.moth.controller
 
-import com.telotengoca.moth.model.Company
 import com.telotengoca.moth.model.CompanyManager
 import com.telotengoca.moth.model.CompanyManagerImpl
-import com.telotengoca.moth.model.MothDatabaseImpl
 import com.telotengoca.moth.utils.ViewUtils
 import javafx.event.ActionEvent
 import javafx.fxml.FXML
@@ -14,7 +12,7 @@ import java.net.URL
 import java.util.*
 
 class AddCompanyController: Initializable {
-    private val companyManager: CompanyManager = CompanyManagerImpl(MothDatabaseImpl())
+    private val companyManager: CompanyManager = CompanyManagerImpl()
 
     @FXML
     private lateinit var nameTextField: TextField
@@ -56,9 +54,9 @@ class AddCompanyController: Initializable {
         val email = emailTextField.text
         val alias = aliasTextField.text
 
-        val company = Company(rif, name, address, telephone, telephone2, email, alias)
+//        val company = Company(rif, name, address, telephone, telephone2, email, alias)
 
-        companyManager.addCompany(company)
+//        companyManager.addCompany(company)
 
         ViewUtils.changeToView("companies", event)
     }

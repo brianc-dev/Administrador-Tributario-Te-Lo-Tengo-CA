@@ -11,7 +11,7 @@ import java.util.*
 class Company(
     @NaturalId(mutable = true)
     @Column(nullable = false, unique = true)
-    val rif: String,
+    val rif: RIF,
     @Column(nullable = false)
     val name: String,
     @Column
@@ -23,7 +23,7 @@ class Company(
     @Column
     val email: String?,
     @Column
-    val alias: String,
+    val alias: String? = null,
     @Column(name = "created_at", nullable = false, updatable = false)
     @CreationTimestamp
     val createdAt: Date? = null,
@@ -32,9 +32,48 @@ class Company(
     val updatedAt: Date? = null,
     @Id @Column(nullable = false)
     @GeneratedValue()
-    val id: String? = null,
-): Model() {
+    val id: Int? = null,
+) : Model() {
     companion object {
+        fun create(
+            rif: RIF,
+            name: String,
+            address: String? = null,
+            telephone: String? = null,
+            telephone2: String? = null,
+            email: String? = null,
+            alias: String? = null
+        ): Company {
+            val company = Company(rif, name, address, telephone, telephone2, email, alias)
+            return create(company)
+        }
 
+        fun all(): List<Company> {
+            Model.factory.createEntityManager().use { em ->
+                val query = em.createQuery("select c from Company as c", Company::class.java)
+                return query.resultList
+            }
+        }
+    }
+}
+@Embeddable
+class RIF(
+    @Column(name = "person_type", nullable = false)
+    @Enumerated(value = EnumType.STRING)
+    val type: PersonType,
+    @Column(length = 8, nullable = false)
+    val serial: Int,
+    @Column(name = "last_number", nullable = false)
+    val lastNumber: Int
+) {
+    enum class PersonType{
+        /*firma personal*/ V,
+        /*jurifico*/ J,
+        /*gubernamental*/ G,
+        /*consejo comunal*/ C,
+    }
+
+    override fun toString(): String {
+        return "${type.name}-$serial-$lastNumber"
     }
 }

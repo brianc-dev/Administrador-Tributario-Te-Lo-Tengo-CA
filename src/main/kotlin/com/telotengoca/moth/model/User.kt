@@ -42,8 +42,7 @@ class User(
         private const val ID_LENGTH = 7
         fun create(username: String, password: String, role: Role): User {
             val user = User(username, password, role)
-            create(user)
-            return user
+            return create(user)
         }
 
         fun all(): List<User> {

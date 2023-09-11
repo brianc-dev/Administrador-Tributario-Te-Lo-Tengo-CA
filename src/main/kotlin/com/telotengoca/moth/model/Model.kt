@@ -10,11 +10,12 @@ abstract class Model {
         val factory: SessionFactory = Configuration().configure().buildSessionFactory()
 
         @JvmStatic
-        protected fun create(entity: Any) {
-            factory.createEntityManager().use {em ->
+        protected fun <T> create(entity: T): T {
+            factory.createEntityManager().use { em ->
                 em.transaction.begin()
                 em.persist(entity)
                 em.transaction.commit()
+                return entity
             }
         }
 

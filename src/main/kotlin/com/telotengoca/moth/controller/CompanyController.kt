@@ -4,7 +4,6 @@ import com.telotengoca.moth.logger.MothLoggerFactory
 import com.telotengoca.moth.model.Company
 import com.telotengoca.moth.model.CompanyManager
 import com.telotengoca.moth.model.CompanyManagerImpl
-import com.telotengoca.moth.model.MothDatabaseImpl
 import javafx.event.ActionEvent
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
@@ -22,7 +21,7 @@ class CompanyController: Initializable {
     private lateinit var scene: Scene
     private lateinit var root: Parent
 
-    private val companyManager: CompanyManager = CompanyManagerImpl(MothDatabaseImpl())
+    private val companyManager: CompanyManager = CompanyManagerImpl()
 
     @FXML
     private lateinit var companyListView: ListView<String>
