@@ -18,6 +18,7 @@ interface UserManager {
     fun login(username: String, password: String): Boolean
     fun logout()
     fun checkPermission(id: String, resource: String, permission: String): Boolean
+    fun getUsers(): List<*>
 }
 
 private const val SALT_LENGTH = 32
@@ -44,7 +45,6 @@ class UserManagerImpl(
         // create root user
         createRootUser()
     }
-
     override var currentUser: User? = null
         private set
 
@@ -90,7 +90,7 @@ class UserManagerImpl(
 
             // check user permission
             if (!checkPermission(currentUser!!.id!!, RESOURCE, Permission.CREATE.toString())) {
-                throw SecurityPolicyViolation("User has no permission to create new user")
+                throw SecurityPolicyViolation(currentUser!!.id!!, RESOURCE, Permission.CREATE)
             }
 
             // check role is valid
@@ -131,7 +131,7 @@ class UserManagerImpl(
             newRole
         )
         if (!checkPermission(currentUser!!.id!!, RESOURCE, Permission.CHANGE_ROLE.toString())) {
-            throw SecurityPolicyViolation("User has no permission to change roles")
+            throw SecurityPolicyViolation(currentUser!!.id!!, RESOURCE, Permission.CHANGE_ROLE)
         }
 
         targetUser.role = Role.valueOf(newRole)
@@ -149,7 +149,7 @@ class UserManagerImpl(
         checkUserIsLoggedIn()
 
         if (!checkPermission(currentUser!!.id!!, RESOURCE, Permission.UPDATE.toString())) {
-            throw SecurityPolicyViolation("User has no permission to update")
+            throw SecurityPolicyViolation(currentUser!!.id!!, RESOURCE, Permission.UPDATE)
         }
 
         if (!hasher.matches(oldPassword, currentUser!!.password)) {
@@ -261,11 +261,21 @@ class UserManagerImpl(
         }
     }
 
+    override fun getUsers(): List<User> {
+        checkUserIsLoggedIn()
+
+        if (!checkPermission(currentUser!!.id!!, RESOURCE, Permission.READ.toString())) {
+            SecurityPolicyViolation(currentUser!!.id!!, RESOURCE, Permission.READ)
+        }
+
+        return User.all()
+    }
+
     /**
      * Exception used to indicate that a given username already exists
      * @param username the username already existing
      */
-    class UsernameExistsException(username: String) : Exception("$username already exists")
+    class UsernameExistsException(username: String) : RuntimeException("$username already exists")
 
     /**
      * Exception used to indicate no user is logged in
@@ -275,9 +285,11 @@ class UserManagerImpl(
 
     /**
      * Exception used to indicate that a subject tried to access a resource, but the security policy rejected it.
-     * @param message message for exception
+     * @param id subject id
+     * @param resource name of resource which action acts upon
+     * @param permission action performed upon resource
      */
-    class SecurityPolicyViolation(message: String) : RuntimeException(message)
+    class SecurityPolicyViolation(id: String, resource: String, permission: Permission) : RuntimeException("User [$id] has no permission to [${permission.name}] in resource [$resource]")
 
     /**
      * Exception used to indicate that a user requested was not found.

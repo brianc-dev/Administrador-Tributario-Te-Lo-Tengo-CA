@@ -45,4 +45,19 @@ class UserTest {
             User.create(username, password, Role.ADMIN)
         }
     }
+
+    @Test fun canGetAllUsers() {
+        val username = "Username456"
+        val username2 = "Username789"
+        val password = "asddfg234"
+
+        User.create(username, password, Role.ADMIN)
+        User.create(username2, password, Role.ADMIN)
+
+        val users = User.all()
+
+        assert(users.isNotEmpty())
+        assert(users.any { it.username == username } && users.any { it.role == Role.ADMIN })
+        assert(users.any { it.username == username2 } && users.any { it.role == Role.ADMIN })
+    }
 }

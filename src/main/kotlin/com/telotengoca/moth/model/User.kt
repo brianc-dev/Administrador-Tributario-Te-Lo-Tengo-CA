@@ -46,6 +46,13 @@ class User(
             return user
         }
 
+        fun all(): List<User> {
+            Model.factory.createEntityManager().use {em ->
+                val query = em.createQuery("select u from userent as u", User::class.java)
+                return query.resultList
+            }
+        }
+
         fun getUserById(id: String): User? {
             Model.factory.createEntityManager().use { em ->
                 val query = em.createQuery("select u from userent as u where u.id = :id", User::class.java)
