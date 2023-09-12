@@ -6,6 +6,7 @@ import javafx.scene.Node
 import javafx.scene.Parent
 import javafx.scene.Scene
 import javafx.stage.Stage
+import org.casbin.jcasbin.main.Enforcer
 import java.security.SecureRandom
 
 object IDUtils {
@@ -47,4 +48,11 @@ object ViewUtils {
         stage.scene = scene
         stage.show()
     }
+}
+
+object PolicyEnforcerUtil {
+    fun getEnforcer(): Enforcer = Enforcer(model, policy)
+
+    val model = this::class.java.getResource("/com/telotengoca/moth/config/rbac_model.conf")?.toURI()!!.path
+    val policy = this::class.java.getResource("/com/telotengoca/moth/config/rbac_policy.csv")?.toURI()!!.path
 }
