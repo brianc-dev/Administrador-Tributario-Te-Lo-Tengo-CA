@@ -2,12 +2,29 @@ package com.telotengoca.moth.model
 
 import jakarta.persistence.criteria.CriteriaBuilder
 import org.hibernate.SessionFactory
-import org.hibernate.cfg.Configuration
+import org.hibernate.boot.MetadataSources
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder
+import kotlin.system.exitProcess
 
 abstract class Model {
     companion object {
 
-        val factory: SessionFactory = Configuration().configure().buildSessionFactory()
+        val factory: SessionFactory = StandardServiceRegistryBuilder().build().use { registry ->
+
+            val models = arrayOf(
+                    User::class.java,
+            )
+
+             return@use try {
+                MetadataSources(registry)
+                        .addAnnotatedClasses(*models)
+                        .buildMetadata()
+                        .buildSessionFactory()
+            } catch (e: Exception) {
+                StandardServiceRegistryBuilder.destroy(registry)
+                 exitProcess(1);
+            }
+        }
 
         @JvmStatic
         protected fun <T> create(entity: T): T {
