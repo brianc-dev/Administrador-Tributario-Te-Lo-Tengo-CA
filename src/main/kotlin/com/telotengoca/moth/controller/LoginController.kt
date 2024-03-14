@@ -1,7 +1,7 @@
 package com.telotengoca.moth.controller
 
 import com.telotengoca.moth.logger.MothLoggerFactory
-import com.telotengoca.moth.model.UserManager
+import com.telotengoca.moth.manager.UserManager
 import javafx.fxml.FXML
 import javafx.scene.control.Button
 import javafx.scene.control.PasswordField

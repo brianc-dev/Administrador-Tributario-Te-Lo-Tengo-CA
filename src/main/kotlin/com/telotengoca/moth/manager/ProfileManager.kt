@@ -1,4 +1,4 @@
-package com.telotengoca.moth.model
+package com.telotengoca.moth.manager
 
 import com.telotengoca.moth.logger.MothLoggerFactory
 
@@ -6,7 +6,7 @@ import com.telotengoca.moth.logger.MothLoggerFactory
  * Represents a user profile.
  */
 data class Profile(
-    val userId: String,
+    val userId: Long,
     val firstName: String,
     val lastName: String,
     val email: String?,

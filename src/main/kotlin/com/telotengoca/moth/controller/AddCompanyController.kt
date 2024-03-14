@@ -1,7 +1,7 @@
 package com.telotengoca.moth.controller
 
-import com.telotengoca.moth.model.CompanyManager
-import com.telotengoca.moth.model.CompanyManagerImpl
+import com.telotengoca.moth.manager.CompanyManager
+import com.telotengoca.moth.manager.CompanyManagerImpl
 import com.telotengoca.moth.utils.ViewUtils
 import javafx.event.ActionEvent
 import javafx.fxml.FXML

@@ -1,6 +1,8 @@
-package com.telotengoca.moth.model
+package com.telotengoca.moth.manager
 
 import com.telotengoca.moth.logger.MothLoggerFactory
+import com.telotengoca.moth.model.Role
+import com.telotengoca.moth.model.User
 import org.casbin.jcasbin.main.Enforcer
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder
 import java.sql.SQLException
@@ -17,7 +19,7 @@ interface UserManager {
     fun changePassword(oldPassword: String, newPassword: String)
     fun login(username: String, password: String): Boolean
     fun logout()
-    fun checkPermission(id: String, resource: String, permission: String): Boolean
+    fun checkPermission(id: Long, resource: String, permission: String): Boolean
     fun getUsers(): List<*>
 }
 
@@ -26,6 +28,8 @@ private const val HASH_LENGTH = 128
 private const val PARALLELISM = 1
 private const val MEMORY = 15 * 1024
 private const val ITERATIONS = 10
+
+typealias Auth = UserManagerImpl
 
 /**
  * This user manager uses a sqlite database to save users and role.
@@ -62,8 +66,7 @@ class UserManagerImpl(
          */
         const val RESOURCE: String = "user"
         private const val ROOT_USERNAME = "root"
-        private const val ROOT_ID = "0"
-        private const val ROOT_ROLE = "admin"
+        private const val ROOT_ID = 0L
 
         /**
          * Describes permissions for this resource
@@ -108,7 +111,7 @@ class UserManagerImpl(
 
             val newUser = User.create(username, hashedPassword, mappedRole)
 
-            val result = policyEnforcer.addRoleForUser(newUser.id, mappedRole.value)
+            val result = policyEnforcer.addRoleForUser(newUser.id.toString(), mappedRole.value)
             check(result)
         } catch (e: SQLException) {
             logger.error("SQL exception occurred", e)
@@ -215,7 +218,7 @@ class UserManagerImpl(
      * @param permission the type of permission. E.g: read, create, update, delete...
      * @return true if the subject is allowed. false otherwise.
      */
-    override fun checkPermission(id: String, resource: String, permission: String): Boolean {
+    override fun checkPermission(id: Long, resource: String, permission: String): Boolean {
         return policyEnforcer.enforce(id, resource, permission)
     }
 
@@ -230,12 +233,9 @@ class UserManagerImpl(
      */
     private fun createRootUser() {
 
-        if (User.idExists(ROOT_ID)) {
-            return
-        } else {
-            logger.info("root has not yet been created")
-        }
+        if (User.findById(0) != null) return
 
+        logger.info("root has not yet been created")
         logger.info("Creating root user...")
 
         val props = Properties()
@@ -247,9 +247,9 @@ class UserManagerImpl(
         val rootPassword = props.getProperty("ROOT_PASSWORD")
         val hashedRootPassword = hasher.encode(rootPassword)
 
-        User.createRoot(ROOT_ID, ROOT_USERNAME, hashedRootPassword, Role.ADMIN)
+        User.create(ROOT_USERNAME, hashedRootPassword, Role.ADMIN)
 
-        val result = policyEnforcer.addRoleForUser(ROOT_ID, ROOT_ROLE)
+        val result = policyEnforcer.addRoleForUser(ROOT_ID.toString(), Role.ADMIN.value)
         check(result)
         logger.info("root created")
     }
@@ -288,7 +288,7 @@ class UserManagerImpl(
      * @param resource name of resource which action acts upon
      * @param permission action performed upon resource
      */
-    class SecurityPolicyViolation(id: String, resource: String, permission: Permission) : RuntimeException("User [$id] has no permission to [${permission.name}] in resource [$resource]")
+    class SecurityPolicyViolation(id: Long, resource: String, permission: Permission) : RuntimeException("User [$id] has no permission to [${permission.name}] in resource [$resource]")
 
     /**
      * Exception used to indicate that a user requested was not found.

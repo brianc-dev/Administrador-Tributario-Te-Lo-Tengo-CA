@@ -14,7 +14,7 @@ class UserTest {
     fun weCanSaveUser() {
         val user = User.create("Username1", "asdfgh", Role.ADMIN)
 
-        val userList = user.all()
+        val userList = User.all()
         assert(userList.any {  it.username == user.username })
     }
 
@@ -22,7 +22,7 @@ class UserTest {
     fun weCanGetUserById() {
         val user = User.create("Username2", "asdfgh", Role.ADMIN)
 
-        val result = User.getUserById(user.id!!)
+        val result = User.findById(user.id!!)
 
         assertNotNull(result)
         checkNotNull(result)

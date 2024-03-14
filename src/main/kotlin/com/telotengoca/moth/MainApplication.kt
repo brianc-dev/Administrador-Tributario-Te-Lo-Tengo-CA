@@ -1,9 +1,8 @@
 package com.telotengoca.moth
 
 import com.telotengoca.moth.controller.LoginController
-import com.telotengoca.moth.model.MothDatabaseImpl
-import com.telotengoca.moth.model.ProfileManagerImpl
-import com.telotengoca.moth.model.UserManagerImpl
+import com.telotengoca.moth.manager.ProfileManagerImpl
+import com.telotengoca.moth.manager.UserManagerImpl
 import javafx.application.Application
 import javafx.fxml.FXMLLoader
 import javafx.scene.Scene
@@ -23,8 +22,7 @@ class MainApplication : Application() {
                 "Couldn't find rbac policy"
             )
 
-            val database = MothDatabaseImpl()
-            val profileManager = ProfileManagerImpl(database)
+            val profileManager = ProfileManagerImpl()
             val enforcer = Enforcer(rbacModel.path, rbacPolicy.path)
             val userManager = UserManagerImpl(enforcer, profileManager)
             LoginController(userManager)

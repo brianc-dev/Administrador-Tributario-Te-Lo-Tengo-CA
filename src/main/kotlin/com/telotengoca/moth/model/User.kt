@@ -32,17 +32,30 @@ class User(
     @Column(name = "updated_at", insertable = false)
     @UpdateTimestamp
     val updatedAt: Date? = null,
-    @Id @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id", nullable = false, updatable = false)
-    val id: String? = null
-) : Model() {
+    @Id @GeneratedValue
+    val id: Long? = null,
+) {
 
-    companion object: Model() {
+    companion object {
 
-        private const val ID_LENGTH = 7
         fun create(username: String, password: String, role: Role): User {
             val user = User(username, password, role)
-            return create(user)
+            Model.factory.createEntityManager().use { em ->
+                em.transaction.begin()
+                em.persist(user)
+                em.transaction.commit()
+                return user
+            }
+        }
+
+        fun findById(id: Long): User? {
+            val user: User?
+            Model.factory.createEntityManager().use { em ->
+                val query = em.createQuery("select u from userent as u where u.id = :id", User::class.java)
+                query.setParameter("id", id)
+                user = kotlin.runCatching { query.singleResult }.getOrNull()
+            }
+            return user
         }
 
         fun all(): List<User> {
@@ -52,15 +65,7 @@ class User(
             }
         }
 
-        fun getUserById(id: String): User? {
-            Model.factory.createEntityManager().use { em ->
-                val query = em.createQuery("select u from userent as u where u.id = :id", User::class.java)
-                query.setParameter("id", id)
-                return query.singleResult
-            }
-        }
-
-        fun delete(id: String): User? {
+        fun delete(id: Long): User? {
             Model.factory.createEntityManager().use { em ->
                 em.transaction.begin()
                 val getQuery = em.createQuery("select u from userent u where u.id = :id", User::class.java)
@@ -82,14 +87,6 @@ class User(
             }
         }
 
-        fun idExists(id: String): Boolean {
-            Model.factory.createEntityManager().use { em ->
-                val q = em.createQuery("select u from userent as u where u.id = :id")
-                q.setParameter("id", id)
-                return q.singleResult != null
-            }
-        }
-
         fun getUserByUsername(username: String): User? {
             Model.factory.createEntityManager().use { em ->
                 val q = em.createQuery("select u from userent as u where u.username = :username", User::class.java)
@@ -97,23 +94,22 @@ class User(
                 return q.singleResult
             }
         }
-
-        fun createRoot(id: String, username: String, password: String, role: Role) {
-            val user = User(username, password, role, id = id)
-            Model.create(user)
-        }
-
-        fun update(user: User) {
-            Model.factory.createEntityManager().use { em ->
-                em.transaction.begin()
-                em.merge(user)
-                em.transaction.commit()
-            }
-        }
     }
 
     fun save() {
-        update(this)
+        Model.factory.createEntityManager().use { em ->
+            em.transaction.begin()
+            em.persist(this)
+            em.transaction.commit()
+        }
+    }
+
+    fun update() {
+        Model.factory.createEntityManager().use { em ->
+            em.transaction.begin()
+            em.merge(this)
+            em.transaction.commit()
+        }
     }
 
     override fun toString(): String {
