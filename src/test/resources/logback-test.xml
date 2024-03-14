@@ -15,16 +15,8 @@
         </encoder>
     </appender>
 
-    <appender name="DB" class="ch.qos.logback.classic.db.DBAppender">
-        <connectionSource class="ch.qos.logback.core.db.DriverManagerConnectionSource">
-            <driverClass>org.sqlite.JDBC</driverClass>
-            <url>jdbc:sqlite:${DATABASE_DIR}/${LOG_DATABASE_FILE}</url>
-        </connectionSource>
-    </appender>
-
     <logger name="com.telotengoca.moth" level="INFO">
         <appender-ref ref="FILE" />
-        <appender-ref ref="DB" />
     </logger>
 
     <root level="debug">

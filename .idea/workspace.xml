@@ -12,6 +12,8 @@
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/config/Config.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/config/Config.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/logger/MothLogger.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/logger/MothLogger.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/manager/UserManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/manager/UserManager.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/logback.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/logback.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/logback-test.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/logback-test.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
