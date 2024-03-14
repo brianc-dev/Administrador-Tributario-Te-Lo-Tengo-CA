@@ -1,5 +1,6 @@
 package com.telotengoca.moth.manager
 
+import com.telotengoca.moth.config.Config
 import com.telotengoca.moth.logger.MothLoggerFactory
 import com.telotengoca.moth.model.Role
 import com.telotengoca.moth.model.User
@@ -238,13 +239,10 @@ class UserManagerImpl(
         logger.info("root has not yet been created")
         logger.info("Creating root user...")
 
-        val props = Properties()
-        props.load(this::class.java.getResourceAsStream("/config.properties"))
-
         // get root password from config file
         // we could ask the user to create this password the first time the app is booted
         // instead of relaying in a config file
-        val rootPassword = props.getProperty("ROOT_PASSWORD")
+        val rootPassword = Config.properties.getProperty("ROOT_PASSWORD")
         val hashedRootPassword = hasher.encode(rootPassword)
 
         User.create(ROOT_USERNAME, hashedRootPassword, Role.ADMIN)

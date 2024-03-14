@@ -8,23 +8,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="897b57ad-50b4-4948-a99c-5a46e37fec83" name="Changes" comment="Added methods to CompanyManager. RIF class. Added test to Company model. Minor corrections in User model and UserManagerImpl. Deleted test for CompanyManagerImpl.">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/MainApplication.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/MainApplication.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/controller/AddCompanyController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/controller/AddCompanyController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/controller/CompanyController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/controller/CompanyController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/controller/LoginController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/controller/LoginController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/config/Config.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/config/Config.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/logger/MothLogger.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/logger/MothLogger.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/manager/Manager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/manager/Manager.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/CompanyManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/manager/CompanyManager.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/Database.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/ProfileManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/manager/ProfileManager.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/User.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/User.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/model/UserManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/manager/UserManager.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/com/telotengoca/moth/model/CompanyManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/com/telotengoca/moth/model/CompanyManager.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/com/telotengoca/moth/model/MothDatabaseImplTest.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/com/telotengoca/moth/model/UserManagerImplTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/com/telotengoca/moth/model/UserManagerImplTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/com/telotengoca/moth/model/UserTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/com/telotengoca/moth/model/UserTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/manager/UserManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/telotengoca/moth/manager/UserManager.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,7 +73,7 @@
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/alex/IdeaProjects/Administrador-Tributario-Te-Lo-Tengo-CA/src/test/resources",
+    "last_opened_file_path": "C:/Users/brian/Devs/Java/administrador-tributario-te-lo-tengo-ca/src/main/resources",
     "project.structure.last.edited": "SDKs",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.26436782",
@@ -102,6 +89,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\brian\Devs\Java\administrador-tributario-te-lo-tengo-ca\src\main\resources" />
       <recent name="C:\Users\alex\IdeaProjects\Administrador-Tributario-Te-Lo-Tengo-CA\src\test\resources" />
       <recent name="C:\Users\alex\IdeaProjects\Administrador-Tributario-Te-Lo-Tengo-CA\src\main\resources" />
       <recent name="$PROJECT_DIR$/src/test/resources/com.telotengoca.moth" />
@@ -127,7 +115,7 @@
       <recent name="com.telotengoca.moth.printer" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.UserManagerImplTest">
+  <component name="RunManager" selected="JUnit.UserTest">
     <configuration name="CompanyTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Moth" />
       <extension name="coverage">
@@ -219,10 +207,10 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.UserManagerImplTest" />
-        <item itemvalue="JUnit.UserManagerImplTest.test that we can create users as root" />
         <item itemvalue="JUnit.UserTest" />
         <item itemvalue="Kotlin.MainApplicationKt" />
+        <item itemvalue="JUnit.UserManagerImplTest" />
+        <item itemvalue="JUnit.UserManagerImplTest.test that we can create users as root" />
         <item itemvalue="JUnit.CompanyTest" />
       </list>
     </recent_temporary>

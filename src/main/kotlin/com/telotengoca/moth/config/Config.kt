@@ -1,14 +1,20 @@
 package com.telotengoca.moth.config
 
+import java.util.*
+
+/**
+ * Helper to get configuration properties from config.properties file.
+ */
 object Config {
+    val properties: Properties = Properties()
     /**
      * Configuration file name
      */
-    val CONFIG_FILE = "config.properties"
+    const val CONFIG_FILE = "/config.properties"
 
-    /**
-     * Configuration file URL in resources
-     */
-    val CONFIG_FILE_URL
-        get() = "/$CONFIG_FILE"
+    init {
+        this::class.java.getResourceAsStream(CONFIG_FILE).use { inputStream ->
+            properties.load(inputStream)
+        }
+    }
 }
